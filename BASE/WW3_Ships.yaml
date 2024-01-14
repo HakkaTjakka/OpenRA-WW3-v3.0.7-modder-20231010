@@ -1,0 +1,404 @@
+#ship-------------------------------------------------------------------------------------------ships
+SMNLY:
+	Inherits@selection: ^SelectableSupportUnit
+	Inherits: ^Ship
+	Buildable:
+		Queue: Ship
+		BuildPaletteOrder: 20
+		Prerequisites: ~dome, ~techlevel.naval
+		IconPalette: cnc
+		Description: Minelaying support ship.\nCan detect submarines, mines.\n  Strong vs Naval units\n  Lays seamines \n Mines reload over time.
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Naval Minelayer
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 8
+		Speed: 128
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Minelayer:
+		Mine: MINS
+		TileUnknownName: build-valid
+		TerrainTypes: Water
+	MineImmune:
+	AmmoPool:
+		Ammo: 5
+	Rearmable:
+		RearmActors: syrdcharger
+	DetectCloaked:
+		DetectionTypes: Underwater, Mine
+		Range: 4c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+	Targetable:
+		TargetTypes: WaterActor, Ship, Mine
+	WithAmmoPipsDecoration:
+		Position: TopLeft
+		Margin: 4, 3
+		RequiresSelection: true
+#alliedships-----------------------------------------------------------------------------------alliedships
+PT:
+	Buildable:
+		Prerequisites: ~syrd, ~techlevel.naval, ~techlevel.low
+NGG:
+	Inherits: ^Ship
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 20
+		IconPalette: cnc
+		Prerequisites: ~syrd, ~ships.england, ~techlevel.naval, ~techlevel.low
+		Description: Naval Gap Generator.\nGenerates shroud cover at sea.
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Gap Ship
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 28
+		Speed: 82
+	RevealsShroud:
+		MinRange: 5c0
+		Range: 7c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithIdleOverlay@SPINNER:
+		Offset: 512,0,0
+		Sequence: spinner
+	CreatesShroud:
+		Range: 7c0
+	RenderShroudCircle:
+	Selectable:
+		DecorationBounds: 1536, 1536
+DD:
+	Buildable:
+		Prerequisites: ~syrd, dome, ~ships.allies, ~techlevel.naval, ~techlevel.medium
+	ProducibleWithLevel:
+		Prerequisites: ships.england
+		InitialLevels: 1
+CA:
+	TooltipDescription:
+		Description: Elite Rank bonus: Improved Accuracy
+	Buildable:
+		Prerequisites: ~syrd, techcenter, ~techlevel.naval, ~techlevel.high
+	ProducibleWithLevel:
+		Prerequisites: ships.england
+		InitialLevels: 1
+	InaccuracyMultiplier@sarg:
+		Modifier: -10
+		RequiresCondition: rank-veteran == 3
+	InaccuracyMultiplier@general:
+		Modifier: -20
+		RequiresCondition: rank-elite
+DD2:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Boat
+		BuildPaletteOrder: 40
+		Prerequisites: ~syrd, ~etek, ~techlevel.naval
+		IconPalette: chrometd
+		Description: Advanced warship\n armed with an array\n of weaponry.\n  Strong vs Naval, Ground, Aircraft
+	Valued:
+		Cost: 1900
+	Tooltip:
+		Name: Frigate
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 60000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 20
+		Speed: 70
+	RevealsShroud:
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: -90,0,406
+	Turreted@PRIMARY:
+		Turret: primary
+		TurnSpeed: 6
+		Offset: 700,0,58
+	Turreted@AA:
+		Turret: secondary
+		InitialFacing: 512
+		TurnSpeed: 40
+		Offset: -700,0,158
+	Armament@AA:
+		Turret: secondary
+		Weapon: FLAK-23-AA
+		Recoil: 85
+		LocalOffset: -758,0,158
+		MuzzleSequence: muzzle
+	Armament@PRIMARY:
+		Turret: primary
+		Weapon: 130mm
+		LocalOffset: 800,20,30, 800,-20,30
+		Recoil: 40
+		RecoilRecovery: 0
+		MuzzleSequence: muzzle
+	Armament@SUB:
+		Weapon: DepthCharge
+		LocalOffset: 500,250,60, -500,-250,60
+		LocalYaw: 80, -80
+	AttackTurreted:
+		Turrets: primary, secondary
+	SelectionDecorations:
+	AutoTarget:
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@AA:
+		Turret: secondary
+		Sequence: turret2
+	WithMuzzleOverlay:
+	DetectCloaked:
+		DetectionTypes: Cloak, Underwater
+		Range: 5c0
+	RenderDetectionCircle:
+	Selectable:
+		DecorationBounds: 1621, 1621
+
+#sovietships------------------------------------------------------------------------------------sovietships
+SS:
+	Buildable:
+		Prerequisites: ~spen, ~techlevel.naval, ~techlevel.low
+MSUB:
+	Buildable:
+		Prerequisites: ~spen, ~techcenter, ~ships.soviet, ~techlevel.naval, ~techlevel.high
+ICBMSUB:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Submarine
+		BuildPaletteOrder: 61
+		Prerequisites: ~spen, ~ctek, ~techlevel.naval, ~techlevel.high
+		Description: Submerged anti-ground siege unit\narmed with long range missiles.\n  Strong vs Infantry, Buildings\n  Weak vs Naval units, Aircraft\n  Special Ability: Submerge
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: ICBM Submarine
+	TooltipDescription:
+		Description: V3 launching submarine. Elite Rank bonus: Fires 2 missiles
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 45000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 10
+		Speed: 42
+	RevealsShroud:
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: WaterActor, Ship, Submarine, Repair
+		RequiresCondition: !underwater
+	Targetable@UNDERWATER:
+		TargetTypes: Underwater, Submarine
+		RequiresCondition: underwater
+	Cloak:
+		DetectionTypes: Underwater
+		InitialDelay: 0
+		CloakDelay: 120
+		CloakSound: subshow1.aud
+		UncloakSound: subshow1.aud
+		CloakedCondition: underwater
+		Palette: submerged
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Armament@primary:
+		Weapon: SubV3
+		LocalOffset: 450,151,0
+		FireDelay: 5
+	Armament@secondary:
+		Weapon: SubV3
+		LocalOffset: -150,151,0
+		FireDelay: 30
+		RequiresCondition: rank-elite
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	SelectionDecorations:
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 4c0
+	RenderDetectionCircle:
+	Explodes:
+		Weapon: UnitExplodeSubmarine
+		EmptyWeapon: UnitExplodeSubmarine
+	Selectable:
+		DecorationBounds: 1877, 1877
+ICBMSUB.Nuclear:
+	Inherits: ^Ship
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Submarine
+		BuildPaletteOrder: 65
+		BuildLimit: 1
+		Prerequisites: ~spen, ~utek, ~techlevel.naval, ~techlevel.high
+		Description: Submerged anti-ground siege unit\narmed with long range missiles.\n  Strong vs Infantry, Buildings\n  Weak vs Naval units, Aircraft\n  Special Ability: Submerge
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Nuclear ICBM Submarine
+	TooltipDescription:
+		Description: Slow moving long-range Submarine with a single Nuclear warhead, long reload time.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 10
+		Speed: 42
+	RevealsShroud:
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 5c0
+	Targetable:
+		TargetTypes: WaterActor, Ship, Submarine, Repair
+		RequiresCondition: !underwater
+	Targetable@UNDERWATER:
+		TargetTypes: Underwater, Submarine
+		RequiresCondition: underwater
+	Cloak:
+		DetectionTypes: Underwater
+		InitialDelay: 125
+		CloakDelay: 200
+		CloakSound: subshow1.aud
+		UncloakSound: subshow1.aud
+		CloakedCondition: underwater
+		Palette: submerged
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	Armament:
+		Weapon: SubV3.Nuclear
+		LocalOffset: 450,151,0
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Name: nuke
+		Armaments: primary
+		Ammo: 1
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		AmmoPool: nuke
+		Delay: 5000
+		Sound: AbombReady
+		PauseOnCondition: cloak-force-disabled
+	WithAmmoPipsDecoration:
+		Position: BottomLeft
+		Margin: 4, 3
+		FullSequence: pip-red
+		RequiresSelection: false
+		PipCount: 1
+	WithDecoration@Nuclear:
+		Image: pips
+		Sequence: pip-nuke
+		Palette: effect
+		Position: TopRight
+		Margin: -1, -1
+		ValidRelationships: Ally
+	AttackFrontal:
+		TargetFrozenActors: False
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	SelectionDecorations:
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	DetectCloaked:
+		DetectionTypes: Underwater
+		Range: 4c0
+	RenderDetectionCircle:
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: UnitExplodeSubmarine
+		LoadedChance: 50
+		DamageSource: Killer
+	Selectable:
+		DecorationBounds: 1877, 1877
+	RenderSprites:
+		Image: icbmsub
+SEAM:
+	Inherits: SS
+	Inherits@Ground: ^AutoTargetGround
+	Inherits@AUTOTARGET: ^AutoTargetAir
+	Tooltip:
+		Name: Sea Mammoth
+	Buildable:
+		Queue: Ship
+		BuildAtProductionType: Submarine
+		BuildPaletteOrder: 62
+		Prerequisites: ~spen, ~rtek, ~techlevel.naval
+		Description: Larger Slower Submarine/n with double torpedoes and /n mammoth tusk missiles.
+	Health:
+		HP: 95000
+	Valued:
+		Cost: 2200
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 10
+		Speed: 40
+	Cloak:
+		CloakDelay: 80
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+	Armament@PRIMARY:
+		Weapon: TorpTube
+		LocalOffset: 200,300,60
+		FireDelay: 2
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: TorpTube
+		LocalOffset: 200,-300,60
+		FireDelay: 10
+	Armament@TERTIARY:
+		Weapon: MammothTusk
+		LocalOffset: 85,284,340, 85,-284,340
+		LocalYaw: -100,100
+		MuzzleSequence: muzzle
+	RenderSprites:
+		Image: seam

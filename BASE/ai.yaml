@@ -1,0 +1,134 @@
+Player:
+	BaseBuilderBotModule@rush:
+		RequiresCondition: enable-rush-ai
+		MinimumExcessPower: 60
+		MaximumExcessPower: 160
+		ExcessPowerIncrement: 40
+		ExcessPowerIncreaseThreshold: 4
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: powr,apwr,sovpwr
+		BarracksTypes: barr,tent
+		VehiclesFactoryTypes: weap
+		ProductionTypes: barr,tent,weap,shpad,hpad,afld,afld.ukraine,abase
+		SiloTypes: silo
+		DefenseTypes: hbox,pbox,gun,ftur,tsla,agun,sam,htur,cram,mtsla,pris
+		BuildingLimits:
+			proc: 4
+			barr: 5
+			tent: 5
+			kenn: 1
+			dome: 1
+			weap: 5
+			fix: 1
+			ustek: 1
+			etek: 1
+			ftek: 1
+			gtek: 1
+			ttek: 1
+			utek: 1
+			rtek: 1
+			ctek: 1
+		BuildingFractions:
+			proc: 30
+			barr: 5
+			kenn: 1
+			tent: 5
+			weap: 5
+			hpad: 1
+			afld: 1
+			abase: 1
+			pbox: 7
+			gun: 7
+			hturr: 2
+			tsla: 5
+			pris: 5
+			mtsla: 2
+			gap: 2
+			ftur: 10
+			agun: 5
+			sam: 5
+			cram: 5
+			ustek: 1
+			etek: 1
+			ftek: 1
+			gtek: 1
+			ttek: 1
+			utek: 1
+			rtek: 1
+			ctek: 1
+			fix: 1
+			dome: 10
+			mslo: 1
+	SquadManagerBotModule@rush:
+		RequiresCondition: enable-rush-ai
+		SquadSize: 30
+		NavalUnitsTypes: ss, msub, dd, ca, lst, pt
+		ExcludeFromSquadsTypes: harv, mcv, dog, badr.bomber, u2
+		ConstructionYardTypes: fact
+		AirUnitsTypes: mig, yak, heli, hind, mh60, a10, f22, kirov, suk, ant40, harr, apache, rah
+		ProtectionTypes: harv, mcv, mslo, gap, spen, syrd, iron, pdox, tsla, agun, dome, pbox, hbox, gun, ftur, sam, atek, weap, fact, proc, silo, hpad, afld, afld.ukraine, powr, apwr, stek, barr, kenn, tent, fix
+	UnitBuilderBotModule@rush:
+		RequiresCondition: enable-rush-ai
+		UnitsToBuild:
+			e1: 65
+			e1gi: 65
+			e1ch: 65
+			e2: 15
+			e3: 30
+			e4: 15
+			dog: 15
+			shok: 15
+			ivan: 15
+			specop: 15
+			sniper: 15
+			e13: 15
+			harv: 10
+			ftnk: 30
+			jeep: 10
+			humm: 10
+			arty: 15
+			v2rl: 40
+			v3rl: 25
+			6tnk: 25
+			katy: 40
+			ftrk: 30
+			gtnk: 30
+			msam: 30
+			1tnk: 50
+			2tnk: 50
+			panzer: 50
+			grizz: 50
+			3tnk: 50
+			3tnk.china: 50
+			lasher: 50
+			4tnk: 25
+			apoc: 25
+			batf: 25
+			empor: 25
+			ttnk: 25
+			ttnk2: 15
+			hftk: 15
+			isu: 15
+			stnk: 5
+			tnkd: 15
+			ptnk: 15
+			rtnk: 15
+			harr: 10
+			yak: 10
+			mig: 10
+			suk: 5
+			f22: 10
+			mh60: 10
+			apache: 10
+			heli: 10
+			rah: 5
+			hind: 10
+			kirov: 5
+			a10: 5
+			ant40: 5
+		UnitLimits:
+			dog: 4
+			harv: 8
+			jeep: 4
+			ftrk: 4

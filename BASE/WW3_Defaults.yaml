@@ -1,0 +1,398 @@
+^BaseWorld:
+	Faction@0:
+		Name: USA
+		InternalName: allies
+		Side: Allies
+		Selectable: true
+		Description: USA
+	Faction@4:
+		Name: China
+		InternalName: soviet
+		Side: Soviet
+		Selectable: true
+		Description: China
+	Faction@7:
+		Name: Turkey
+		InternalName: turkey
+		Side: Soviet
+	Faction@8:
+		Name: Spain
+		InternalName: spain
+		Side: Allies
+	Faction@randomallies:
+		Name: USA
+		InternalName: RandomAllies
+		RandomFactionMembers: allies
+		Side: Allies
+		Description: USA
+	Faction@randomsoviet:
+		Name: China
+		InternalName: RandomSoviet
+		RandomFactionMembers: soviet
+		Side: Soviet
+		Description: China
+	Faction@random:
+		Name: Any
+		InternalName: Random
+		RandomFactionMembers: allies, france, england, germany, soviet, russia, ukraine, turkey
+	Locomotor@AMPHIBIOUS:
+		Name: amphibious
+		Crushes: infantry, mine, crate
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 60
+			Road: 120
+			Bridge: 120
+			Ore: 70
+			Gems: 70
+			Beach: 70
+			Water: 50
+			River: 30
+	Locomotor@SHEAVYTRACKED:
+		Name: sheavytracked
+		Crushes: wall, infantry, tank, mine, crate, heavywall, beacon
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 88
+			Road: 125
+			Bridge: 125
+			Ford: 88
+			Ore: 88
+			Gems: 88
+			Tiberium: 88
+			BlueTiberium: 88
+			Beach: 88
+	Locomotor@NAVAL:
+		Crushes: crate, mine
+World:
+	MapOptions:
+		TechLevelDropdownLocked: true
+		TechLevel: unrestricted
+		ShortGameCheckboxEnabled: true
+		ShortGameCheckboxLocked: true
+		GameSpeedDropdownLocked: false
+		GameSpeed: fast
+	CrateSpawner:
+		CheckboxEnabled: true
+		CheckboxLocked: false
+	MapBuildRadius:
+		AllyBuildRadiusCheckboxEnabled: true
+		AllyBuildRadiusCheckboxLocked: false
+		BuildRadiusCheckboxEnabled: true
+		BuildRadiusCheckboxLocked: false
+	SpawnStartingUnits:
+		DropdownLocked: true
+		StartingUnitsClass: none
+	MapStartingLocations:
+		SeparateTeamSpawnsCheckboxEnabled: false
+		SeparateTeamSpawnsCheckboxLocked: false
+	StartingUnits@mcvonly:
+		Class: none
+		ClassName: MCV Only
+		Factions: england, france, germany, russia, ukraine, usa, china, spain, turkey
+		BaseActor: mcv
+	StartingUnits@usa:
+		Class: none
+		ClassName: MCV Only
+		Factions: allies
+		BaseActor: mcv
+	StartingUnits@china:
+		Class: none
+		ClassName: MCV Only
+		Factions: soviet
+		BaseActor: mcv
+
+Player:
+	Shroud:
+		ExploredMapCheckboxEnabled: true
+		ExploredMapCheckboxLocked: true
+		FogCheckboxLocked: true
+		FogCheckboxEnabled: true
+	LobbyPrerequisiteCheckbox@GLOBALFACTUNDEPLOY:
+		Enabled: true
+		Locked: true
+	PlayerResources:
+		SelectableCash: 2500, 5000, 7500, 10000
+		DefaultCash: 5000
+		DefaultCashDropdownLocked: true
+	LobbyPrerequisiteCheckbox@REUSABLEENGINEERS:
+		Enabled: true
+	LobbyPrerequisiteCheckbox@REUSABLEMECHANICS:
+		ID: reusable-mechanics
+		Label: Reusable Mechanics
+		Description: Mechanics remain on the battlefield after capturing a husk
+		Enabled: false
+		Locked: false
+		DisplayOrder: 9
+		Prerequisites: global-reusable-mechanics
+	LobbyPrerequisiteCheckbox@NAVY:
+		ID: navy
+		Label: Naval Units
+		Description: Enables naval units
+		Enabled: true
+		DisplayOrder: 13
+		Prerequisites: techlevel.naval
+	LobbyPrerequisiteCheckbox@BIO:
+		ID: bio
+		Label: BioLab Nonsense
+		Description: Enables the spare weird units with a bio lab
+		Enabled: false
+		DisplayOrder: 14
+		Prerequisites: bio.fun
+	TechTree:
+	ClassicProductionQueue@Building:
+		BuildTimeSpeedReduction: 100, 81, 72, 64, 57, 49, 40, 35
+	ClassicProductionQueue@Defense:
+		BuildTimeSpeedReduction: 100, 72, 57, 49, 35
+	ClassicProductionQueue@Vehicle:
+		BuildTimeSpeedReduction: 100, 72, 57, 49, 35
+	ClassicProductionQueue@Infantry:
+		BuildTimeSpeedReduction: 100, 81, 72, 64, 57, 49, 40, 35
+	ClassicProductionQueue@Ship:
+		BuildTimeSpeedReduction: 100, 72, 64, 57, 49, 35
+	ClassicProductionQueue@Aircraft:
+		BuildTimeSpeedReduction: 100, 81, 72, 64, 57, 49, 40, 35
+	ProximityCaptor:
+		Types: Player
+^Palettes:
+	PaletteFromFile@cnc:
+		Name: cnc
+		Filename: bits/temperatcnc.pal
+		ShadowIndex: 4
+	PlayerColorPalette@cnc:
+		BaseName: cncplayer
+		BasePalette: cnc
+		RemapIndex: 176, 178, 180, 182, 184, 186, 189, 191, 177, 179, 181, 183, 185, 187, 188, 190
+	PaletteFromFile@temptd:
+		Name: temptd
+		Filename: bits/temperattd.pal
+		ShadowIndex: 4
+	PlayerColorPalette@TD:
+		BasePalette: temptd
+		BaseName: playertd
+		RemapIndex: 176, 178, 180, 182, 184, 186, 189, 191, 177, 179, 181, 183, 185, 187, 188, 190
+	PaletteFromFile@chromeTD:
+		Name: chrometd
+		Filename: bits/temperattd.pal
+		ShadowIndex: 3
+		AllowModifiers: false
+	PaletteFromRGBA@invred:
+		Name: invred
+		R: 128
+		G: 0
+		B: 0
+		A: 128
+	PaletteFromRGBA@invblue:
+		Name: invblue
+		R: 0
+		G: 0
+		B: 128
+		A: 128
+	PaletteFromFile@playercloak:
+		Name: playercloak
+		Filename: bits/playercloak.pal
+		ShadowIndex: 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178, 2, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 96, 98, 100, 102, 104, 106, 108, 110, 112, 114, 116, 118, 120, 122, 124, 126, 128, 130, 132, 144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 178
+	PlayerColorPalette@CLOAK:
+		BaseName: player-cloak
+		BasePalette: playercloak
+		RemapIndex: 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95
+	RotationPaletteEffect@CLOAKROTATEPLAYER:
+		Palettes: newcloak
+		RotationBase: 80
+		RotationRange: 15
+	RotationPaletteEffect@CLOAKROTATE1:
+		Palettes: newcloak
+		RotationBase: 1
+		RotationRange: 79
+	RotationPaletteEffect@CLOAKROTATE2:
+		Palettes: newcloak
+		RotationBase: 96
+		RotationRange: 158
+	PaletteFromPlayerPaletteWithAlpha@newcloak:
+		BaseName: newcloak
+		BasePalette: player-cloak
+		Alpha: 0.55
+	PaletteFromFile@cc2unittem:
+		Name: cc2unittem
+		Filename: cc2unittem.pal
+		ShadowIndex: 1
+	PlayerColorPalette@cc2unittem:
+		BasePalette: cc2unittem
+		BaseName: player-cc2
+		RemapIndex: 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	PaletteFromPlayerPaletteWithAlpha@cloak:
+		BaseName: cloak
+		BasePalette: player
+		Alpha: 0.45
+^Stealthable:
+	Cloak@STEALTHABLE:
+		InitialDelay: 0
+		CloakDelay: 30
+		IsPlayerPalette: true
+		RequiresCondition: stealth
+		Palette: newcloak
+	TimedConditionBar@STEALTH:
+		Condition: stealth
+		Color: FF54D1
+	ExternalCondition@STEALTH:
+		Condition: stealth
+^AffectsPROC: #ercc
+	ProximityExternalCondition@cloak:
+		Condition: cloak
+		ValidRelationships: enemy, neutral, ally
+		Range: 1c512
+		RequiresCondition: !moving
+	GrantConditionOnMovement@proc:
+		Condition: moving
+^CommandoSkull:
+	WithDecoration@COMMANDOSKULL:
+		Image: pips
+		Sequence: pip-skull
+		Palette: effect
+		Position: TopLeft
+		ValidRelationships: Ally, Enemy, Neutral
+^ToxInf:
+	ExternalCondition@TOXIN:
+		Condition: poisoned
+	WithDecoration@TOXIN:
+		Image: pips
+		Sequence: pip-toxin
+		Palette: effect
+		Position: TopRight
+		Margin: -1, -1
+		ValidRelationships: Enemy, Neutral, Ally
+		RequiresCondition: poisoned
+	ChangesHealth@TOXIN:
+		RequiresCondition: poisoned
+		Step: -350
+		Delay: 15
+		StartIfBelow: 100
+	SpawnActorOnDeath:
+		Actor: Zombie
+		Probability: 50
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		RequiresCondition: poisoned
+^Propaganda:
+	ExternalCondition@PROPAGANDA:
+		Condition: prop
+	RangeMultiplier@PROP:
+		RequiresCondition: prop
+		Modifier: 110
+	FirepowerMultiplier@PROP:
+		RequiresCondition: prop
+		Modifier: 130
+	DamageMultiplier@PROP:
+		RequiresCondition: prop
+		Modifier: 75
+^PropagandaVeh:
+	Inherits: ^Propaganda
+	WithDecoration@PROP:
+		Image: pips
+		Sequence: pip-prop
+		Palette: effect
+		Position: TopRight
+		Margin: -1, -1
+		ValidRelationships: Ally
+		RequiresCondition: prop
+		BlinkInterval: 30
+		BlinkPattern: Off, On
+	ChangesHealth@PROP:
+		RequiresCondition: prop && damaged
+		Step: 250
+		Delay: 50
+		StartIfBelow: 90
+	WithDecoration@PROPHEAL:
+		Image: pips
+		Sequence: fix
+		Position: BottomRight
+		Margin: 17, 4
+		RequiresCondition: prop && damaged
+		BlinkInterval: 32
+		BlinkPattern: Off, On
+^PropagandaInf:
+	Inherits: ^Propaganda
+	WithDecoration@PROP:
+		Image: pips
+		Sequence: pip-prop-inf
+		Palette: effect
+		Position: TopRight
+		Margin: -1, -1
+		ValidRelationships: Ally
+		RequiresCondition: prop
+		BlinkInterval: 30
+		BlinkPattern: Off, On
+	ChangesHealth@PROP:
+		RequiresCondition: prop && damaged && !hospitalheal
+		Step: 200
+		Delay: 50
+		StartIfBelow: 90
+	WithDecoration@PROPHEAL:
+		Image: pips
+		Sequence: medic
+		Position: BottomRight
+		Margin: 17, 4
+		RequiresCondition: prop && damaged && !hospitalheal
+		BlinkInterval: 32
+		BlinkPattern: Off, On
+^VoicesSelector:
+	GrantConditionOnFaction@Vanilla:
+		Condition: Vanilla
+		Factions: england, france, germany, ukraine, russia
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@China:
+		Condition: IAMCHINESE
+		Factions: soviet
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@usa:
+		Condition: IAMAMERICAN
+		Factions: allies
+		ResetOnOwnerChange: True
+	GrantConditionOnFaction@turk:
+		Condition: IAMTURK
+		Factions: turkey
+		ResetOnOwnerChange: True
+^Building:
+	Inherits@STEALTHABLE: ^Stealthable
+	Capturable@2:
+		RequiresCondition: !build-incomplete
+		Types: building-external
+^Defense:
+	Inherits@STEALTHABLE: ^Stealthable
+	RequiresBuildableArea:
+		AreaTypes: building
+		Adjacent: 4
+^Vehicle:
+	Inherits@STEALTHABLE: ^Stealthable
+	Inherits@PROC: ^AffectsPROC
+	Inherits@PROP: ^PropagandaVeh
+	Carryable:
+		LocalOffset: 0,0,205
+	Crushable:
+		CrushClasses: tank
+		WarnProbability: 0
+		RequiresCondition: !invulnerability
+	WithParachute:
+		Image: maxichute
+		Sequence: idle
+		OpeningSequence: open
+		Offset: 0,0,304
+		RequiresCondition: parachute
+	ProductionCostMultiplier:
+		Multiplier: 90
+		Prerequisites: indp
+		Queue: Vehicle
+	ProductionTimeMultiplier:
+		Multiplier: 85
+		Prerequisites: indp
+		Queue: Vehicle
+^Husk:
+	Targetable:
+		TargetTypes: GroundActor, Husk, NoAutoTarget
+		RequiresForceFire: false
+^Infantry:
+	Inherits@PROC: ^AffectsPROC
+	Inherits@PROP: ^PropagandaInf
+	Inherits@TOXIN: ^ToxInf
+^Ship:
+	Inherits@STEALTHABLE: ^Stealthable

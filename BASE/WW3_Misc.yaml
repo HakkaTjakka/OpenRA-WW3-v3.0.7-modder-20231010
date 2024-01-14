@@ -1,0 +1,545 @@
+BIO:
+	Inherits: ^TechBuilding
+	Inherits@shape: ^2x2Shape
+	Selectable:
+		Bounds: 2048, 2048
+	OwnerLostAction:
+		Action: ChangeOwner
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	GivesBuildableArea:
+		AreaTypes: building
+	BaseProvider:
+		Range: 4c0
+	RevealsShroud:
+		Range: 4c0
+	CaptureManager:
+	CapturableProgressBlink:
+	Capturable:
+		Types: building
+	CapturableProgressBar:
+	InstantlyRepairable:
+	-Demolishable:
+	Tooltip:
+		Name: Biological Lab
+	TooltipDescription@ally:
+		Description: Provides prerequisite for Bio-Lab units.
+		ValidRelationships: Ally
+	TooltipDescription@other:
+		Description: Capture to produce Bio-Lab units.
+		ValidRelationships: Neutral, Enemy
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	SpawnActorOnDeath:
+		Actor: BIO
+		OwnerType: InternalName
+		RequiresCondition: unkillable
+	ProvidesPrerequisite@buildingname:
+	GrantConditionOnPrerequisite:
+		Condition: unkillable
+		Prerequisites: bio.fun
+	AppearsOnMapPreview:
+	GpsDot:
+		String: Biohazard
+MINS: #seamines
+	Inherits: ^Mine
+	RenderSprites:
+		Image: mins
+	Explodes:
+		Weapon: ASMine
+SONAR:
+	RevealsShroud:
+		Range: 10c0
+		Type: CenterPosition
+Zombie:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Valued:
+		Cost: 100
+	Tooltip:
+		Name: Zombie
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 200
+		Prerequisites: ~disabled
+		Description: Slow undead. Attacks in close combat.
+	SpreadsCondition@TOXIN:
+		Probability: 50
+		SpreadCondition: poisoned
+		Range: 3c0
+		Delay: 15
+	-ExternalCondition@TOXIN:
+#antsinyourpants
+Ant:
+	Buildable:
+		Prerequisites: ~barracks, ~bio, ~bio.fun
+	Health:
+		HP: 7500
+FireAnt:
+	Inherits: Ant
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Fire Ant
+		GenericVisibility: none
+	Mobile:
+		Speed: 68
+	Armament:
+		Weapon: AntFireball
+	Health:
+		HP: 7500
+	Armor:
+		Type: Heavy
+	Buildable:
+		Prerequisites: ~barracks, ~bio, ~bio.fun
+ScoutAnt:
+	Inherits: Ant
+	Tooltip:
+		Name: Scout Ant
+		GenericVisibility: none
+	Mobile:
+		Speed: 98
+	Health:
+		HP: 8500
+	Armor:
+		Type: Light
+	AutoTarget:
+		ScanRadius: 7
+	Buildable:
+		Prerequisites: ~barracks, ~bio, ~bio.fun
+WarriorAnt:
+	Inherits: Ant
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Warrior Ant
+		GenericVisibility: none
+	Mobile:
+		Speed: 56
+	Health:
+		HP: 12500
+	Armor:
+		Type: Heavy
+	Armament:
+		Weapon: MandibleHeavy
+	Buildable:
+		Prerequisites: ~barracks, ~bio, ~bio.fun
+	RenderSprites:
+		Image: Ant
+#random vehicles
+ECTNK:
+	Inherits: 4TNK
+	Valued:
+		Cost: 2250
+	Tooltip:
+		Name: Missile Tortoise
+		GenericName: Tank
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 320
+		Prerequisites: ~bio, ~bio.fun
+		Description: Big and slow tank with missile barrage.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	RenderSprites:
+		Image: ectnk
+	-WithMuzzleOverlay:
+	Turreted:
+		Offset: -50,0,400
+	Armament@PRIMARY:
+		Weapon: NapalmMissile
+		LocalOffset: 213,128,0, 213,-128,0
+		-MuzzleSequence:
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: NapalmMissile
+		LocalOffset: 213,-128,0, 213,128,0
+		RequiresCondition: rank-elite
+		-MuzzleSequence:
+	SpawnActorOnDeath:
+		Actor: ECTNK.Husk
+ECTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Missile Tortoise)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: ectnk
+	InfiltrateForTransform:
+		IntoActor: ectnk
+	RenderSprites:
+		Image: ectnk.destroyed
+CN:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Card Ninja
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 200
+		Prerequisites: ~tent, ~bio, ~bio.fun
+		Description: New Zealand Special Forces. Attacks in close combat.
+	Health:
+		HP: 25000
+	Mobile:
+		Speed: 59
+		Voice: Move
+	AutoTarget:
+		ScanRadius: 5
+	WithInfantryBody:
+		AttackSequences: 
+			primary: fight
+			secondary: shoot
+		IdleSequences: stand, stand2
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	AttackFrontal:
+		Voice: Attack
+	Armament:
+		Name: primary
+		Weapon: Ninja
+	Armament@Card:
+		Name: secondary
+		Weapon: TNT.CN
+		LocalOffset: 0,0,555
+	Voiced:
+		VoiceSet: CNVoice
+		Volume: 3
+	-TakeCover:
+TG:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: The Incredible Gary
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 200
+		BuildLimit: 1
+		Prerequisites: ~barr, ~bio, ~bio.fun
+		Description: An experiment that went terribly wrong.
+	Health:
+		HP: 5000
+	Mobile:
+		Speed: 59
+	AutoTarget:
+		ScanRadius: 5
+	WithInfantryBody:
+		IdleSequences: stand, stand2
+	-WithDeathAnimation:
+	Armament:
+		Weapon: SilencedPPK
+	SpawnActorOnDeath@hulk:
+		Actor: BRUT
+		SkipMakeAnimations: False
+	RenderSprites:
+		PlayerPalette: cncplayer
+BRUT:
+	Inherits: ^Soldier
+	GainsExperience:
+		Conditions:
+			600: rank-veteran
+			800: rank-veteran
+			1600: rank-veteran
+			3200: rank-veteran
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	AutoTarget:
+		ScanRadius: 4
+		InitialStance: AttackAnything
+	Tooltip:
+		Name: Hulky Monster
+	Health:
+		HP: 99999
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 66
+		Voice: Move
+	RevealsShroud:
+		Range: 4c0
+	Selectable:
+		DecorationBounds: 1224, 1224
+	-Voiced:
+	WithMakeAnimation:
+	WithSpriteBody:
+		StartSequence: make
+		Sequence: body
+	WithInfantryBody:
+		MoveSequence: run
+		StandSequences: stand
+		DefaultAttackSequence: bash
+		IdleSequences: idle, idle2
+	WithDeathAnimation:
+		DeathSequence: die
+		-CrushedSequence:
+		UseDeathTypeSuffix: true
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 1
+			SmallExplosionDeath: 2
+			ExplosionDeath: 2
+			FireDeath: 5
+			ElectricityDeath: 6
+	Armament@PRIMARY:
+		Weapon: BruteAttack
+		FireDelay: 10
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 0
+	-TakeCover:
+	-Crushable:
+	RenderSprites:
+		Image: brut
+TPOD:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 310
+		Prerequisites: ~bio, ~bio.fun
+		Description: Heavy assault walker with beam weapons.
+		IconPalette: chrome
+	Voiced:
+		VoiceSet: TripodVoice
+	Valued:
+		Cost: 3000
+	Selectable:
+		Bounds: 1280, 2218, 0, -426
+	Tooltip:
+		Name: Annihilator Tripod
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 76000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: amphibious
+		Speed: 44
+		TurnSpeed: 512
+	GrantConditionOnTerrain@SEA:
+		TerrainTypes: Water, River
+		Condition: floating
+	Targetable:
+		RequiresCondition: !floating
+	Targetable@SEA:
+		TargetTypes: GroundActor, WaterActor, Ship, Tank
+		RequiresCondition: floating
+	WithFacingSpriteBody:
+		Sequence: idle
+		RequiresCondition: !floating
+	WithFacingSpriteBody@SEA:
+		Name: floating
+		Sequence: float
+		RequiresCondition: floating
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@PRIMARY:
+		Weapon: TripodLaser
+		LocalOffset: 650,420,1000
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: TripodLaser
+		LocalOffset: 650,-420,1000
+		MuzzleSequence: muzzle
+		FireDelay: 20
+	Turreted:
+		TurnSpeed: 12
+		Offset: 0,0,100
+	WithMuzzleOverlay:
+	Carryable:
+		LocalOffset: 0,0,700
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+	AttackTurreted:
+	WithSpriteTurret:
+	WithMoveAnimation:
+	DeathSounds:
+		Voice: Die
+	SpawnActorOnDeath:
+		Actor: TPOD.Husk
+TPOD.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Annihilator Tripod)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: tpod
+	InfiltrateForTransform:
+		IntoActor: tpod
+	RenderSprites:
+		Image: tpod.destroyed
+#civilianbuildings-------------------------------------------------------------------------civilianbuildings
+OILB:
+	ProximityCapturable:
+		CaptorTypes: Player, Vehicle, Tank, Infantry
+		Range: 5c0
+		MustBeClear: false
+		Sticky: true
+		Permanent: true
+V01:
+	Inherits: ^BasicBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Tooltip:
+		Name: Church. Capture to Garrison.
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	CaptureManager:
+	Capturable:
+		Types: Building
+		RequiresCondition: !civgarrison
+	ProximityCapturable:
+		CaptorTypes: Player, Infantry
+		Range: 2c0
+		Sticky: True
+		MustBeClear: false
+	RevealsShroud:
+		MinRange: 0c0
+		Range: 8c0
+		RequiresCondition: civgarrison
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		LoadedCondition: civgarrison
+	AttackGarrisoned:
+		Armaments: garrisoned
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+RUSHOUSE:
+	Inherits: ^BasicBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Tooltip:
+		Name: House. Capture to Garrison.
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	CaptureManager:
+	Capturable:
+		Types: Building
+		RequiresCondition: !civgarrison
+	ProximityCapturable:
+		CaptorTypes: Player, Infantry
+		Range: 2c0
+		Sticky: True
+		MustBeClear: false
+	RevealsShroud:
+		MinRange: 0c0
+		Range: 12c0
+		RequiresCondition: civgarrison
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		LoadedCondition: civgarrison
+	AttackGarrisoned:
+		Armaments: garrisoned
+		PortOffsets: 384,0,128, 224,-341,128, -224,-341,128, -384,0,128, -224,341,128, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+LHUS:
+	Inherits: ^BasicBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Tooltip:
+		Name: Lighthouse. Capture to Garrison.
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	CaptureManager:
+	Capturable:
+		Types: Building
+		RequiresCondition: !civgarrison
+	ProximityCapturable:
+		CaptorTypes: Player, Infantry
+		Range: 2c0
+		Sticky: True
+		MustBeClear: false
+	RevealsShroud:
+		MinRange: 0c0
+		Range: 12c0
+		RequiresCondition: civgarrison
+	Cargo:
+		Types: Infantry
+		MaxWeight: 5
+		LoadedCondition: civgarrison
+	AttackGarrisoned:
+		Armaments: garrisoned
+		PortOffsets: 384,0,328, 224,-341,228, -224,-341,128, -384,0,328, -224,341,228, 224,341,128
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+WINDMILL:
+	Inherits: ^BasicBuilding
+	Inherits@AUTOTARGET: ^AutoTargetAll
+	Inherits@CARGOPIPS: ^CargoPips
+	Tooltip:
+		Name: Windmill. Capture to Garrison.
+	Health:
+		HP: 40000
+	Armor:
+		Type: Wood
+	CaptureManager:
+	Capturable:
+		Types: Building
+		RequiresCondition: !civgarrison
+	ProximityCapturable:
+		CaptorTypes: Player, Infantry
+		Range: 2c0
+		Sticky: True
+		MustBeClear: false
+	RevealsShroud:
+		MinRange: 0c0
+		Range: 10c0
+		RequiresCondition: civgarrison
+	Cargo:
+		Types: Infantry
+		MaxWeight: 3
+		LoadedCondition: civgarrison
+	AttackGarrisoned:
+		Armaments: garrisoned
+		PortOffsets: 384,0,228, 224,-341,228, -224,-341,228, -384,0,228, -224,341,228, 224,341,228
+		PortYaws: 0, 176, 341, 512, 682, 853
+		PortCones: 88, 88, 88, 88, 88, 88
+ET:
+	Inherits: ^CivBuilding
+	Building:
+		Footprint: ____=____ ___===___ ___===___ ___=x=___ __=xxx=__ __xxxxx__ =xxxxxxx= _=xxxxx=_ __=xxx=__
+		Dimensions: 9,9
+		LocalCenterOffset: 0,-3000,0
+	Tooltip:
+		Name: Eiffel Tower.
+	MapEditorData:
+		ExcludeTilesets: DESERT, INTERIOR
+	HitShape:
+		UseTargetableCellsOffsets: false
+		TargetableOffsets: 0,0,0, -421,-256,0, -421,256,0
+		Type: Rectangle
+			TopLeft: -683, -432
+			BottomRight: 683, 683

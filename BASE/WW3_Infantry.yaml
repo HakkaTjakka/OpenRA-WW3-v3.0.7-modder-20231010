@@ -1,0 +1,730 @@
+#infantry------------------------------------------------------------------------------------------infantry
+GENMEDI:
+	Inherits: MEDI
+	Buildable:
+		Prerequisites: ~hosp, ~infantry.soviet
+	RenderSprites:
+		Image: MEDI
+E1:
+	Inherits@Voices: ^VoicesSelector
+	Buildable:
+		Prerequisites: ~barracks, ~infantry.vanilla, ~techlevel.infonly
+	TooltipDescription:
+		Description: Elite Rank Bonus: Grenades.
+	Armament@RankUpSECONDARY:
+		Name: secondary
+		Weapon: BuildingGrenade
+		LocalOffset: 0,0,555
+		FireDelay: 15
+		RequiresCondition: rank-veteran == 3 || rank-elite
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+E2:
+	Inherits@Voices: ^VoicesSelector
+	TooltipDescription:
+		Description: Elite Rank Bonus: Bouncing Grenades.
+	Armament@PRIMARY:
+		RequiresCondition: !rank-elite
+	Armament@RankUpSECONDARY:
+		Name: Elite
+		Weapon: mGrenade
+		LocalOffset: 0,0,555
+		RequiresCondition: rank-elite
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+E3:
+	Inherits@Voices: ^VoicesSelector
+	TooltipDescription:
+		Description: Elite Rank Bonus: x2 Missiles.
+	Armament@RankUp:
+		Name: tertiary
+		Weapon: RedEye
+		LocalOffset: 0,0,555
+		FireDelay: 15
+		RequiresCondition: rank-elite
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+#AlliedInfantry-----------------------------------------------------------------------------alliedinfantry
+E1GI:
+	Inherits: E1
+	Buildable:
+		Icon: e1gi
+		Prerequisites: ~infantry.usa, ~techlevel.infonly
+		Description: US basic infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: GI
+	TooltipDescription:
+		Description: Elite Rank Bonus: Grenades.
+		ValidRelationships: Ally
+	ProducibleWithLevel:
+		Prerequisites: techlevel.infonly
+		InitialLevels: 1
+	Valued:
+		Cost: 110
+	Voiced:
+		VoiceSet: USAVoice
+	Armament@RankUpSECONDARY:
+		Name: secondary
+		Weapon: BuildingGrenade
+		LocalOffset: 0,0,555
+		FireDelay: 15
+		RequiresCondition: rank-veteran == 3 || rank-elite
+	RenderSprites:
+		Image: E1
+SNIPER:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	RenderSprites:
+		Image: sniper
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 110
+		Prerequisites: ~tent, dome, ~infantry.usa
+		Description: Elite marksman infantry armed with\n  a powerful sniper rifle.
+	Tooltip:
+		Name: Sniper
+	TooltipDescription:
+		Description: Elite Rank Bonus: Sight & Range Increase.
+	Valued:
+		Cost: 600
+	Health:
+		HP: 9500
+	IgnoresDisguise:
+	RangeMultiplier@ELITE:
+		Modifier: 120
+		RequiresCondition: rank-elite
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	RevealsShroud:
+		Range: 7c0
+		MinRange: 6c0
+		RevealGeneratedShroud: false
+	RevealsShroud@ELITE:
+		Range: 10c0
+		MinRange: 6c0
+		RevealGeneratedShroud: false
+		RequiresCondition: rank-elite
+	RevealsShroud@GAPGEN:
+		Range: 6c0
+	Armament@PRIMARY:
+		Weapon: sniper
+	Mobile:
+		Speed: 46
+	Cloak@NORMAL:
+		InitialDelay: 200
+		CloakDelay: 200
+		IsPlayerPalette: true
+		DetectionTypes: Cloak
+		UncloakOn: Move, Unload, Infiltrate, Demolish, Dock, Attack
+	WithInfantryBody:
+		AttackSequences:
+			primary: shoot
+			secondary: shoot
+		StandSequences: stand, stand2
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	AttackFrontal:
+		Voice: Attack
+	Voiced:
+		VoiceSet: SniperVoice
+	Passenger:
+		CustomPipType: red
+	Guard:
+	ProducibleWithLevel:
+		InitialLevels: 1
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: barracks.upgraded
+MECH:
+	Inherits: ^Soldier
+	TooltipDescription:
+		Description: Repair husks back to life.
+		ValidRelationships: Ally
+	CaptureManager:
+	GrantConditionOnPrerequisite@REUSABLEMECHANICS:
+		Condition: global-reusable-mechanics
+		Prerequisites: global-reusable-mechanics
+	Captures:
+		RequiresCondition: !global-reusable-mechanics
+		CaptureTypes: husk
+		PlayerExperience: 25
+		EnterCursor: goldwrench
+		ConsumedByCapture: true
+	Captures@rehusk:
+		RequiresCondition: global-reusable-mechanics
+		CaptureTypes: husk
+		PlayerExperience: 25
+		ConsumedByCapture: False
+		EnterCursor: goldwrench
+	Infiltrates:
+		RequiresCondition: !global-reusable-mechanics
+		Types: Husk
+		ValidRelationships: ally
+		EnterCursor: goldwrench
+	Infiltrates@rehusk:
+		RequiresCondition: global-reusable-mechanics
+		Types: Husk
+		ValidRelationships: ally
+		EnterCursor: goldwrench
+		EnterBehaviour: Exit
+E13:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 120
+		Prerequisites: ~tent, ~gtek, ~techlevel.high
+		Description: Elite Infantry with portable Chrono cannons.\n Strong vs Infantry, Vehicles\n Weak vs Aircraft
+	Valued:
+		Cost: 650
+	Tooltip:
+		Name: Chrono Soldier
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 5000
+	Mobile:
+		Voice: Move
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: ChronoHandGun
+		LocalOffset: 427, 0, 341
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: ChronoHandGun
+	PortableChrono:
+		ChargeDelay: 500
+		MaxDistance: 24
+	TakeCover:
+		ProneOffset: 227,0,-245
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 0
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Guard:
+		Voice: Move
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	Voiced:
+		VoiceSet: ChronoVoice
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+E7:
+	Inherits@COMMANDOSKULL: ^CommandoSkull
+	Buildable:
+		Prerequisites: ~tent, ~techcenter, ~techlevel.high
+
+RMBO:
+	Inherits: ^Soldier
+	Inherits@EXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Commando
+	TooltipDescription:
+		Description: Deploys into a mini-fortification.
+		ValidRelationships: Ally
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Buildable:
+		BuildPaletteOrder: 120
+		Prerequisites: ~tent, ~ustek, ~techlevel.high
+		BuildAtProductionType: Infantry
+		Queue: Infantry
+		BuildLimit: 15
+		Description: Elite commando infantry. Armed with\nHeavy Machine Gun.\n Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft\n  Special Ability: Deploy
+		IconPalette: cnc
+	ProducibleWithLevel:
+		Prerequisites: techlevel.high
+		InitialLevels: 2
+	Mobile:
+		Speed: 71
+		Voice: Move
+		PauseOnCondition: !undeployed
+		RequireForceMoveCondition: !undeployed
+	Guard:
+		Voice: Move
+	Health:
+		HP: 15000
+	Armor@deployed:
+		Type: Heavy
+		RequiresCondition: deployed
+	Passenger:
+		CustomPipType: red
+		Voice: Move
+	RevealsShroud:
+		Range: 6c0
+	AutoTarget:
+		ScanRadius: 8
+	Armament@PRIMARY:
+		Weapon: C60mg
+		RequiresCondition: !deployed
+	Armament@SECONDARY:
+		Weapon: BuildingGrenade
+		RequiresCondition: !deployed
+	AttackMove:
+		Voice: Attack
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle1,idle2,idle3
+	Targetable:
+		TargetTypes: GroundActor, Infantry
+	AnnounceOnKill:
+	Voiced:
+		VoiceSet: GGIVoice
+	Armament@PRIMARYDEP:
+		Weapon: RedEye
+		Name: deployed
+		Turret: deploy
+		LocalOffset: 0,0,400
+		PauseOnCondition: !ammo
+		RequiresCondition: deployed
+	Armament@SECONDARYDEP:
+		Name: deployed
+		Weapon: Dragon
+		Turret: deploy
+		LocalOffset: 0,0,400
+		PauseOnCondition: !ammo
+		RequiresCondition: deployed
+	Armament@GarrisonAA:
+		Name: mountedaa
+		Weapon: RedEye
+		PauseOnCondition: !ammo
+	Armament@Garrison:
+		Name: mounted
+		Weapon: Dragon
+		PauseOnCondition: !ammo
+	AmmoPool:
+		Ammo: 1
+		AmmoCondition: ammo
+	ReloadAmmoPool:
+		Delay: 25
+		Count: 1
+	TakeCover:
+		ProneOffset: 384,0,-395
+		RequiresCondition: !deployed
+	DamageMultiplier:
+		Modifier: 50
+		RequiresCondition: deployed
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	AutoTarget:
+		ScanRadius: 8
+	GrantConditionOnDeploy:
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		UndeployOnMove: True
+		Voice: Action
+		DeploySounds: audio/iggidea.aud, audio/iggideb.aud
+		UndeploySounds: audio/iggidea.aud, audio/iggideb.aud
+		RequiresCondition: !parachute
+		Facing: 332
+	WithInfantryBody:
+		DefaultAttackSequence: shoot
+		RequiresCondition: undeployed && !parachute
+	WithMakeAnimation:
+		Sequence: deploy
+		BodyNames: dot
+	Turreted:
+		Turret: deploy
+		RealignDelay: -1
+		TurnSpeed: 1023
+		InitialFacing: 332
+	WithSpriteTurret@idle:
+		Turret: deploy
+		Sequence: deployed
+		RequiresCondition: deployed && !animate-turret && !parachute
+	WithSpriteTurret@animated:
+		Turret: deploy
+		Sequence: deploy-shoot
+		RequiresCondition: deployed && animate-turret && !parachute
+	WithSpriteBody:
+		Sequence: empty
+		Name: dot
+		RequiresCondition: !undeployed
+	AttackFrontal:
+		RequiresCondition: undeployed
+		Voice: Attack
+		FacingTolerance: 0
+	AttackTurreted@deployed:
+		Armaments: deployed
+		Turrets: deploy
+		Voice: Attack
+		RequiresCondition: deployed
+		OutsideRangeRequiresForceFire: True
+		RangeMargin: 0
+	GrantConditionOnAttack:
+		Condition: animate-turret
+		RevokeDelay: 5
+		ArmamentNames: deployed
+	Crushable:
+		RequiresCondition: undeployed
+	RenderSprites:
+		PlayerPalette: cncplayer
+		Image: rmbo
+SPECOP:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 80
+		Prerequisites: ~techlevel.medium, ~etek, ~infantry.england, dome
+		Description: Elite rifleman armed with grenades.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 250
+	Tooltip:
+		Name: Royal Marine
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 5000
+	Mobile:
+	ProducibleWithLevel:
+		Prerequisites: techlevel.medium
+		InitialLevels: 1
+	RevealsShroud:
+		Range: 6c0
+	Armament@PRIMARY:
+		Name: primary
+		Weapon: M1Carbine2
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: BuildingGrenade
+		LocalOffset: 0,0,555
+		FireDelay: 15
+	Armament@GARRISONED:
+		Name: garrisoned
+		Weapon: Vulcan
+		MuzzleSequence: garrison-muzzle
+	WithInfantryBody:
+		AttackSequences:
+			primary: shoot
+			secondary: throw
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	WithInfantryBody:
+		IdleSequences: idle1,idle2,idle3
+	RenderSprites:
+
+#sovietinfantry--------------------------------------------------------------------sovietinfantry
+INS1:
+	Inherits: ^Infantry
+	Inherits: ^ArmedCivilian
+	Inherits: ^AutoTargetAllAssaultMove
+ 	Health:
+		HP: 8000
+	Armament@PRIMARY:
+		Weapon: sniper
+	FreeActor@INSURG1:
+		Actor: INS2
+		SpawnOffset: 0,1
+	FreeActor@INSURG2:
+		Actor: INS2
+		SpawnOffset: 1,1
+	FreeActor@INSURG3:
+		Actor: INS3
+		SpawnOffset: 1,0
+	FreeActor@INSURG4:
+		Actor: INS2
+		SpawnOffset: 2,1
+	FreeActor@INSURG5:
+		Actor: INS4
+		SpawnOffset: 1,2
+	FreeActor@INSURG6:
+		Actor: IVAN
+		SpawnOffset: 2,2
+	FreeActor@INSURG7:
+		Actor: DOG
+		SpawnOffset: 1,3
+	FreeActor@INSURG8:
+		Actor: DOG
+		SpawnOffset: 3,1
+	RenderSprites:
+		Image: C1
+INS2:
+	Inherits: ^Infantry
+	Inherits: ^ArmedCivilian
+	Inherits: ^AutoTargetAllAssaultMove
+	Health:
+		HP: 4000
+	Tooltip:
+		Name: Insurgant
+	Armament@PRIMARY:
+		Weapon: Flamer
+		LocalOffset: 700,0,500
+		FireDelay: 8
+	RenderSprites:
+		Image: C2
+INS3:
+	Inherits: ^Infantry
+	Inherits: ^ArmedCivilian
+	Inherits: ^AutoTargetAllAssaultMove
+	Health:
+		HP: 4000
+	Tooltip:
+		Name: Insurgant
+	Armament@PRIMARY:
+		Weapon: M1Carbine
+	WithInfantryBody:
+		Palette: civilian5
+	RenderSprites:
+		Image: C1
+INS4:
+	Inherits: ^Infantry
+	Inherits: ^ArmedCivilian
+	Inherits: ^AutoTargetAllAssaultMove
+	Health:
+		HP: 4000
+	Tooltip:
+		Name: Insurgant
+	Armament@PRIMARY:
+		Weapon: BuildingGrenade
+	WithInfantryBody:
+		Palette: civilian4
+	RenderSprites:
+		Image: C1
+SHOK:
+	Buildable:
+		Prerequisites: ~barr, ~rtek, tsla, ~infantry.russia, ~techlevel.high
+E1CH:
+	Inherits: E1
+	Buildable:
+		Icon: e1ch
+		Prerequisites: ~infantry.china, ~techlevel.infonly
+		Description: Conscripted Infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Tooltip:
+		Name: Chinese Conscript
+	Valued:
+		Cost: 90
+	Voiced:
+		VoiceSet: ChinaVoice
+	Health:
+		HP: 4000
+	RenderSprites:
+		Image: e1
+HACKER:
+	Inherits: ^Soldier
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 90
+		Prerequisites: ~barr, dome, ~ctek, ~techlevel.high
+		Description: Recovers resources from the internet.\nCan hack enemy buildings.\n	Unarmed
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Hacker
+	TooltipDescription:
+		Description: Garrison in Internet Centre to increase cash output, can shut down enemy power.
+		ValidRelationships: Ally
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 8000
+	Mobile:
+		Voice: Move
+	RevealsShroud:
+		Range: 3c0
+	Passenger:
+		CustomPipType: blue
+		Voice: Move
+		CargoConditions:
+			internet: inside
+	CashTrickler:
+		Interval: 150
+		InitialDelay: 0
+		Amount: 5
+	CashTricklerMultiplier:
+		Modifier: 300
+		RequiresCondition: inside
+	Infiltrates:
+		Types: SpyInfiltrate
+		Notification: BuildingInfiltrated
+		TextNotification: Building infiltrated.
+	WithInfantryBody:
+		IdleSequences: idle
+		DefaultAttackSequence: repair
+		StandSequences: stand
+	Voiced:
+		VoiceSet: ThiefVoice
+	Selectable:
+		Priority: 6
+		PriorityModifiers: Ctrl, Alt
+IVAN:
+	Inherits: ^Soldier
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildPaletteOrder: 32
+		Prerequisites: barr, ~ttek, ~techlevel.high
+		Description: Specialist demolition infantry armed with explosives.\n• Strong vs Buildings, Defenses, Light Armor\n• Cannot attack Aircraft\n• Has difficulty hitting moving targets
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Crazy Ivan
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 7000
+	Mobile:
+		Speed: 66
+		Voice: Move
+	AttackMove:
+		Voice: Move
+	Passenger:
+		Voice: Move
+	Guard:
+		Voice: Move
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: TNT
+		LocalOffset: 0,0,555
+		FireDelay: 15
+	Armament@Garrison:
+		Name: mounted
+		Weapon: TNT
+		FireDelay: 15
+	TakeCover:
+		ProneOffset: 256,64,-331
+	AttackFrontal:
+		Voice: Attack
+		FacingTolerance: 0
+	WithInfantryBody:
+		DefaultAttackSequence: throw
+		RequiresCondition: !parachute
+	WithInfantryBody@PARACHUTE:
+		StandSequences: parachute
+		RequiresCondition: parachute
+	Explodes:
+		Weapon: ArtilleryExplode
+		EmptyWeapon: ArtilleryExplode
+		Chance: 75
+		DamageSource: Killer
+	ProducibleWithLevel:
+		Prerequisites: barracks.upgraded
+	Voiced:
+		VoiceSet: CrazyIvanVoice
+	RenderSprites:
+		PlayerPalette: cncplayer
+SAB:
+	Inherits: ^Soldier
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Queue: Infantry
+		BuildAtProductionType: Soldier
+		BuildLimit: 1
+		BuildPaletteOrder: 120
+		Prerequisites: ~barr, ~ttek, ~techlevel.medium
+		Description: Sneak attack unit that carries/n a miniature nuke.\n  Can Disguise.
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Sabotuer
+	TooltipDescription:
+		Description: Can disguise himself, explodes enemy buildings.
+		ValidRelationships: Ally
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 5000
+	RevealsShroud:
+		Range: 5c0
+	Passenger:
+		CustomPipType: blue
+	-TakeCover:
+	WithInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	Crushable:
+		WarnProbability: 95
+	Disguise:
+		DisguisedCondition: disguise
+	AutoTarget:
+		InitialStance: HoldFire
+		ScanRadius: 5
+	-WithInfantryBody:
+	WithDisguisingInfantryBody:
+		DefaultAttackSequence: shoot
+		IdleSequences: idle
+		StandSequences: stand
+		RequiresCondition: !parachute
+	WithDisguisingInfantryBody@PARACHUTE:
+		RequiresCondition: parachute
+		Palette: player-noshadow
+		IsPlayerPalette: true
+	WithDecoration@disguise:
+		Position: Top
+		Margin: 0, -6
+		Image: pips
+		Sequence: tag-sab
+		Palette: effect
+		RequiresCondition: disguise
+	IgnoresDisguise:
+	Armament:
+		Weapon: DemoTruckTargeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	KillsSelf:
+		RequiresCondition: triggered
+	Explodes:
+		Weapon: CrateNuke
+		EmptyWeapon: CrateNuke
+		DamageSource: Killer
+	AttackFrontal:
+	Mobile:
+		Speed: 68
+	RenderSprites:
+		Image: sab
+DOG:
+	DetectCloaked:
+		Range: 3c0
+		DetectionTypes: Mine

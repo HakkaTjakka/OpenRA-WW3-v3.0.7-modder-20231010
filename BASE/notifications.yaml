@@ -1,0 +1,7 @@
+Speech:
+	Notifications:
+		IonCannonCharging: audio/mionchrg1
+		IonCannonReady: audio/mionredy1
+		ChinaPower: sovrein1
+		Ready: audio/ready
+		Charging: audio/charging

@@ -1,0 +1,2160 @@
+#vehicles-----------------------------------------------------------------------------------vehicles
+HARV:
+	-Crushable
+	Carryable:
+		LocalOffset: 0,0,200
+	ProximityExternalCondition@cloak:
+		ValidRelationships: enemy
+#alliedvehicles----------------------------------------------------------------------------alliedvehicles
+CTNK:
+	Buildable:
+		Prerequisites: ~gtek, ~techlevel.high
+STNK:
+	Buildable:
+		Prerequisites: ~ftek, ~vehicles.france, ~techlevel.high
+JEEP:
+	Buildable:
+		Prerequisites: ~vehicles.allies, ~!vehicles.usa, ~techlevel.low
+	RevealsShroudMultiplier@RANK-1:
+		RequiresCondition: rank-veteran == 3 || rank-elite
+		Modifier: 110
+	Cloak:
+		InitialDelay: 25
+		CloakDelay: 175
+		CloakSound: appear1.aud
+		UncloakSound: appear1.aud
+		IsPlayerPalette: true
+		RequiresCondition: rank-elite
+MGG:
+	Inherits@selection: ^SelectableSupportUnit
+	Buildable:
+		Prerequisites: ~etek, ~techlevel.high
+	-Carryable:
+2TNK:
+	Buildable:
+		Prerequisites: fix, ~!vehicles.germany, ~!vehicles.usa, ~vehicles.allies, ~techlevel.medium
+	Valued:
+		Cost: 800
+	TooltipDescription:
+		Description: Elite Rank bonus: Heat shells & Secondary AA Turret
+	Armament:
+		Turret: primary
+		Weapon: 90mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+		RequiresCondition: !rank-elite
+	Turreted:
+		Turret: primary
+		TurnSpeed: 20
+	Armament@EliteMain:
+		Turret: primary
+		Weapon: 90mmHEAT
+		Recoil: 128
+		RecoilRecovery: 28
+		LocalOffset: 624,0,208
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	Armament@EliteAA:
+		Turret: secondary
+		Weapon: StingerAA
+		LocalOffset: 420,10,190
+		RequiresCondition: rank-elite
+	WithSpriteTurret@Elite:
+		Turret: secondary
+		RequiresCondition: rank-elite
+		Sequence: turret2
+	Turreted@Secondary:
+		Turret: secondary
+		Offset: 420,0,140
+		TurnSpeed: 30
+ARTY:
+	Inherits@Voices: ^VoicesSelector
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: dome, ~vehicles.allies, ~!vehicles.usa, ~techlevel.medium
+	TooltipDescription:
+		Description: Elite Rank bonus: Cluster Shells & Increased Range
+	Armament:
+		Weapon: 155mm
+		LocalOffset: 624,0,208
+		MuzzleSequence: muzzle
+		RequiresCondition: !rank-elite
+	Armament@RANKup:
+		Weapon: 155mmElite
+		LocalOffset: 624,0,208
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	RangeMultiplier@RANKup:
+		RequiresCondition: rank-elite
+		Modifier: 130
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+HOWI:
+	Inherits: ARTY
+	RenderSprites:
+		Image: howi
+		PlayerPalette: cncplayer
+	Tooltip:
+		Name: Howitzer
+	Buildable:
+		BuildPaletteOrder: 231
+		Prerequisites: dome, ~vehicles.usa, ~techlevel.medium
+	-AttackFrontal:
+	AttackTurreted:
+	Turreted:
+		TurnSpeed: 18
+	Armament:
+		Weapon: 155mm
+	Mobile:
+		Speed: 64
+		TurnSpeed: 18
+	WithSpriteTurret:
+MRJ:
+	Buildable:
+		Prerequisites: ~techcenter, ~vehicles.allies, ~techlevel.high
+HUMM:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~vehicles.usa, ~techlevel.low
+		Description: Fast scout & anti-infantry vehicle.\nCan carry 4 infantry.\n  Strong vs Infantry\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 500
+	Tooltip:
+		Name: Humvee
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 40
+		Speed: 170
+		PauseOnCondition: notmobile || being-captured
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 40
+		Offset: 0,0,128
+	Armament:
+		Weapon: M60mg
+		MuzzleSequence: muzzle
+		LocalOffset: 128,0,43
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 4
+		LoadingCondition: notmobile
+	DetectCloaked:
+		Range: 3c0
+		DetectionTypes: Mine
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Voiced:
+		VoiceSet: USAVoice
+	RenderSprites:
+		PlayerPalette: cncplayer
+RTNK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 240
+		Prerequisites: fix, ~ftek, ~techlevel.medium
+		Description: French Stealth Tank.\n Cloaks.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Mirage Tank
+		GenericName: Tank
+	TooltipDescription:
+		Description: Elite Rank bonus: Fire while cloaked
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 47000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 75
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 15
+	Armament:
+		Weapon: 90mmHEAT
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: RTNK.Husk
+	Cloak@Standard:
+		InitialDelay: 105
+		CloakDelay: 175
+		CloakSound: appear1.aud
+		IsPlayerPalette: true
+		UncloakSound: appear1.aud
+		RequiresCondition: !rank-elite
+		PauseOnCondition: cloak-force-disabled
+	Cloak@Elite:
+		UncloakOn: Dock
+		CloakDelay: 105
+		CloakSound: appear1.aud
+		IsPlayerPalette: true
+		UncloakSound: appear1.aud
+		RequiresCondition: rank-elite
+		PauseOnCondition: cloak-force-disabled
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	SelectionDecorations:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	Voiced:
+		VoiceSet: MirageVoice
+RTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Mirage Tank)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: rtnk
+	InfiltrateForTransform:
+		IntoActor: rtnk
+	RenderSprites:
+		Image: rtnk.destroyed
+PANZER:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		IconPalette: cnc
+		BuildPaletteOrder: 222
+		Prerequisites: fix, ~vehicles.germany, ~techlevel.medium
+		Description: German Main Battle Tank.\n  Strong vs Vehicles, Infantry\n  Weak vs Aircraft
+	Valued:
+		Cost: 850
+	Tooltip:
+		Name: Panzer Tank
+		GenericName: Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 45000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 85
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 5
+	Armament@PRIMARY:
+		Weapon: P90mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Weapon: P60mg
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Voiced:
+		VoiceSet: PanzerVoice
+	SpawnActorOnDeath:
+		Actor: PANZER.Husk
+	SelectionDecorations:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	RenderSprites:
+		Image: panzer
+PANZER.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Panzer Tank)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: panzer
+	InfiltrateForTransform:
+		IntoActor: panzer
+	RenderSprites:
+		Image: panzer.destroyed
+GRIZZ:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 221
+		Prerequisites: fix, ~vehicles.usa, ~techlevel.medium
+		Description: USA Main Battle Tank.\n  Strong vs Vehicles\n  Weak vs Infantry
+	Valued:
+		Cost: 850
+	Mobile:
+		Speed: 85
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 45000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Tooltip:
+		Name: Grizzly Tank
+		GenericName: Tank
+	Armament:
+		Weapon: 90mm
+		Recoil: 100
+		RecoilRecovery: 30
+		LocalOffset: 720,0,80
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Weapon: RedEye
+		LocalOffset: 420,10,90
+	Turreted:
+		TurnSpeed: 25
+		Offset: 10,0,0
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Voiced:
+		VoiceSet: USAVoice
+	SpawnActorOnDeath:
+		Actor: Grizz.Husk
+	SelectionDecorations:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+Grizz.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Grizzly Tank)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: grizz
+	InfiltrateForTransform:
+		IntoActor: grizz
+	RenderSprites:
+		Image: grizz.destroyed
+PTNK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		BuildDuration: 1450
+		Prerequisites: ~ustek, ~techlevel.high
+		Description: Medium-range artillery with Prism weapon.\n  Strong vs Buildings, Defenses, Infantry, Light Armor\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Prism Tank
+		GenericName: Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 12000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 82
+		Voice: Move
+	Passenger:
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 5
+		Offset: 100,0,0
+	Armament:
+		Weapon: PrisTLaser
+		LocalOffset: 100,0,180
+	AttackTurreted:
+		TargetFrozenActors: True
+		OpportunityFire: False
+		Voice: Attack
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: PTNK.Husk
+	Voiced:
+		VoiceSet: PrismVoice
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+PTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Prism Tank)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: ptnk
+	InfiltrateForTransform:
+		IntoActor: ptnk
+	RenderSprites:
+		Image: ptnk.destroyed
+IFV:
+	Inherits: ^TrackedVehicle
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		BuildDuration: 670
+		Prerequisites: dome, ~vehicles.allies, ~techlevel.medium
+		Description: Adaptable infantry transport.\n• Weapon and ability changes dependant on Occupant\n  Special Ability: Transform
+	Valued:
+		Cost: 800
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Mobile:
+		Speed: 158
+		PauseOnCondition: being-captured
+	Turreted:
+		TurnSpeed: 40
+		Offset: 20,0,0
+	AttackTurreted:
+	WithMuzzleOverlay:
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 8c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armor:
+		Type: Light
+	Health:
+		HP: 26000
+	Cargo:
+		Types: Infantry
+		MaxWeight: 1
+		InitialUnits: e1
+		PassengerConditions:
+			e1: ifv-rifle
+			e1gi: ifv-rifle
+			e1ch: ifv-rifle
+			e1r1: ifv-rifle
+			e2: ifv-grenadier
+			e3: ifv-rocket
+			e3r1: ifv-rocket
+			e4: ifv-flame
+			spy: ifv-spy
+			spy.england: ifv-spy
+			e7: ifv-sniper
+			rmbo: ifv-sniper
+			medi: ifv-medic
+			genmedi: ifv-medic
+			mech: ifv-mechanic
+			thf: ifv-spy
+			shok: ifv-tesla
+			sniper: ifv-sniper
+			e13: ifv-chrono
+			ivan: ifv-grenadier
+		
+	Armament@rifle:
+		Weapon: m60mg
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-rifle
+	Tooltip@rifleman:
+		Name: Assault IFV
+		RequiresCondition: ifv-rifle
+	WithSpriteTurret@gun:
+		RequiresCondition: ifv-rifle
+		Sequence: turret3
+	Armament@chrono:
+		Weapon: ChronoHandGun
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-chrono
+	WithSpriteTurret@chrono:
+		RequiresCondition: ifv-chrono
+		Sequence: turret9
+	PortableChrono:
+		ChargeDelay: 250
+		KillCargo: False
+		RequiresCondition: ifv-chrono
+	Tooltip@chrono:
+		Name: Chrono IFV
+		RequiresCondition: ifv-chrono
+	Armament@rocketAA:
+		Weapon: SidewinderAA
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-rocket
+	Armament@rocketAG:
+		Weapon: APTusk
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-rocket
+	Tooltip@rocket:
+		Name: Rocket IFV
+		RequiresCondition: ifv-rocket
+	WithSpriteTurret@samturr2:
+		RequiresCondition: ifv-rocket
+		Sequence: turret2
+	Armament@medic:
+		Weapon: mHeal
+		Cursor: heal
+		OutsideRangeCursor: heal
+		TargetRelationships: Ally
+		RequiresCondition: ifv-medic
+	Tooltip@medic:
+		Name: Ambulance IFV
+		RequiresCondition: ifv-medic
+	WithDecoration@REDCROSS:
+		Image: pips
+		Sequence: medic
+		Position: BottomRight
+		RequiresCondition: ifv-medic
+	Armament@mechanic:
+		Weapon: mRepair
+		Cursor: repair
+		OutsideRangeCursor: repair
+		TargetRelationships: Ally
+		RequiresCondition: ifv-mechanic
+	WithSpriteTurret@mech:
+		RequiresCondition: ifv-mechanic
+		Sequence: turret6
+	ChangesHealth@mechanic:
+		Step: 10
+		Delay: 50
+		StartIfBelow: 100
+		DamageCooldown: 150
+		RequiresCondition: ifv-mechanic
+	Tooltip@mechanic:
+		Name: Repair IFV
+		RequiresCondition: ifv-mechanic
+	DetectCloaked@spy:
+		DetectionTypes: Cloak
+		RequiresCondition: ifv-spy
+	Tooltip@spy:
+		Name: Stealth IFV
+		RequiresCondition: ifv-spy
+	Cloak:
+		InitialDelay: 25
+		CloakDelay: 175
+		CloakSound: appear1.aud
+		UncloakSound: appear1.aud
+		IsPlayerPalette: true
+		PauseOnCondition: cloak-force-disabled
+		RequiresCondition: ifv-spy
+	GrantConditionOnDamageState@UNCLOAK:
+		Condition: cloak-force-disabled
+		ValidDamageStates: Critical
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		PauseOnCondition: cloak-force-disabled
+		RequiresCondition: ifv-spy
+		Offset: 0,0,200
+	Armament@sniper:
+		Weapon: mSniper
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-sniper
+	Tooltip@sniper:
+		Name: Sniper Ranger
+		RequiresCondition: ifv-sniper
+	WithSpriteTurret@snip:
+		Sequence: turret11
+		RequiresCondition: ifv-sniper
+	Armament@grenadier:
+		Weapon: mGrenade
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-grenadier
+	WithSpriteTurret@gren:
+		Sequence: turret8
+		RequiresCondition: ifv-grenadier
+	Tooltip@grenadier:
+		Name: Grenade IFV
+		RequiresCondition: ifv-grenadier
+	Armament@flamer:
+		Weapon: Flamer
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-flame
+	Tooltip@flamer:
+		Name: Flame IFV
+		RequiresCondition: ifv-flame
+	WithSpriteTurret@flamer:
+		Sequence: turret5
+		RequiresCondition: ifv-flame
+	Armament@shock:
+		Weapon: TTankZap
+		LocalOffset: 128,0,43
+		RequiresCondition: ifv-tesla
+	Tooltip@shock:
+		Name: Tesla IFV
+		RequiresCondition: ifv-tesla
+	WithIdleOverlay@TESLA:
+		Sequence: tesla
+		RequiresCondition: ifv-tesla
+	GrantCondition@customautotarget:
+		RequiresCondition: ifv-medic || ifv-mechanic || ifv-sniper
+		Condition: customautotarget
+	AutoTargetPriority@ATTACKANYTHING:
+		RequiresCondition: stance-attackanything || assault-move && !customautotarget
+	AutoTargetPriority@INCLUDEAIR:
+		ValidTargets: AirborneActor
+		InvalidTargets: NoAutoTarget
+		RequiresCondition: ifv-rocket
+	AutoTargetPriority@MEDICORSNIPERORTANYA:
+		ValidTargets: Infantry
+		InvalidTargets: NoAutoTarget
+		RequiresCondition: ifv-medic || ifv-sniper
+	AutoTargetPriority@MECHANIC:
+		ValidTargets: Vehicle, Tank
+		InvalidTargets: NoAutoTarget
+		RequiresCondition: ifv-mechanic
+TNKD:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: fix, ~gtek, ~techlevel.high
+		Description: Mobile anti-armor platform, sporting a big gun\n Strong vs Tanks, Vehicles\n Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Tank Destroyer
+		GenericName: Tank
+	Health:
+		HP: 67000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 12
+		Speed: 74
+	RevealsShroud:
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: 130mm
+		LocalOffset: 720,0,90
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Voiced:
+		VoiceSet: TnkdVoice
+	SpawnActorOnDeath:
+		Actor: TNKD.Husk
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+TNKD.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Tank Destroyer (Destroyed)
+	TransformOnCapture:
+		IntoActor: tnkd
+	InfiltrateForTransform:
+		IntoActor: tnkd
+	RenderSprites:
+		Image: tnkd.destroyed
+BATF:
+	Inherits: ^TrackedVehicle
+	Inherits@CARGOPIPS: ^CargoPips
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 320
+		Prerequisites: fix, ~etek, ~techlevel.high
+		Description: Heavily-armored fortress on wheels, armed with multiple turrets.\nMust be manned to fire.\nCan crush concrete walls \n Strong vs Everything\n Weak vs Nothing
+	Valued:
+		Cost: 2100
+	Tooltip:
+		Name: Battle Fortress
+	TooltipDescription:
+		Description: Must be manned to fire. Carries 8 Passengers.
+		ValidRelationships: Ally
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 100000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: sheavytracked
+		Speed: 50
+		Voice: Move
+	-Carryable:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		InitialUnits: e1, e1, e3, mech
+		LoadedCondition: loaded
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	AttackTurreted:
+		Turrets: primary, secondary, tertiary
+		Armaments: primary, secondary, tertiary
+		Voice: Attack
+	Armament@PRIMARY:
+		Name: primary
+		Turret: primary
+		Weapon: 130mm
+		LocalOffset: 200,0,300
+		RequiresCondition: loaded
+	Armament@SECONDARY:
+		Name: secondary
+		Turret: secondary
+		Weapon: 130mm
+		FireDelay: 8
+		LocalOffset: 200,0,300
+		RequiresCondition: loaded
+	Armament@TERTIARY:
+		Name: tertiary
+		Turret: tertiary
+		Weapon: ApocalypseTusk
+		LocalOffset: -200,0,300
+		MuzzleSequence: muzzle
+		RequiresCondition: loaded
+	Turreted@PRIMARY:
+		Turret: primary
+		Offset: 200,-300,0
+		TurnSpeed: 3
+	Turreted@SECONDARY:
+		Turret: secondary
+		Offset: 200,300,0
+		TurnSpeed: 3
+	Turreted@TERTIARY:
+		Turret: tertiary
+		Offset: -300,0,358
+		TurnSpeed: 4
+	WithMuzzleOverlay:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Voiced:
+		VoiceSet: BattleFortressVoice
+	ChangesHealth:
+		Step: 100
+		Delay: 3
+		StartIfBelow: 50
+		DamageCooldown: 150
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	WithSpriteTurret@SECONDARY:
+		Turret: secondary
+	WithSpriteTurret@TERTIARY:
+		Turret: tertiary
+		Sequence: turret2
+	SpawnActorOnDeath:
+		Actor: BATF.Husk
+	Capturable:
+BATF.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Battle Fortress)
+	TransformOnCapture:
+		IntoActor: batf
+	InfiltrateForTransform:
+		IntoActor: batf
+	RenderSprites:
+		Image: batf.destroyed
+#sovietvehicles-------------------------------------------------------------------------------sovietvehicles
+APC:
+	Inherits@Voices: ^VoicesSelector
+	Buildable:
+		Prerequisites: ~vehicles.soviet, ~!vehicles.russia, ~techlevel.low
+	TooltipDescription:
+		Description: Elite Rank bonus: Gatling Turret
+	Armament:
+		Weapon: M60mg
+		LocalOffset: 85,0,171
+		MuzzleSequence: muzzle
+		RequiresCondition: !rank-elite
+	AttackFrontal:
+		FacingTolerance: 0
+		RequiresCondition: !rank-elite
+	Armament@EliteAA:
+		Weapon: VulcanAA
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 308,0,195
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	Armament@EliteAP:
+		Weapon: Vulcan
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 308,0,190
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	Turreted:
+		Offset: 0,0,171
+		TurnSpeed: 38
+	AttackTurreted:
+		RequiresCondition: rank-elite
+	WithSpriteTurret:
+		RequiresCondition: rank-elite
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+TTNK:
+	Valued:
+		Cost: 1200
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: tsla, fix, ~vehicles.russia, ~techlevel.medium
+DTRK:
+	Buildable:
+		Prerequisites: ~utek, ~techlevel.high
+		BuildDurationModifier: 85
+	WithDecoration@Nuclear:
+		Image: pips
+		Sequence: pip-nuke
+		Palette: effect
+		Position: TopRight
+		Margin: -1, -1
+		ValidRelationships: Ally
+QTNK:
+	Buildable:
+		Prerequisites: fix, techcenter, ~!vehicles.turkey, ~vehicles.soviet, ~techlevel.high
+V2RL:
+	Buildable:
+		Prerequisites: dome, ~vehicles.ukraine, ~techlevel.medium
+	TooltipDescription:
+		Description: Elite Rank bonus: Increased Range
+	RangeMultiplier@RANKUP:
+		RequiresCondition: rank-elite
+		Modifier: 150
+3TNK:
+	Inherits: ^TrackedVehicle
+	Buildable:
+		Prerequisites: fix, ~!vehicles.china, ~!vehicles.turkey, ~vehicles.soviet, ~techlevel.medium
+		Description: Soviet Main Battle Tank, with dual cannons\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Heavy Tank
+		GenericName: Tank
+	TooltipDescription:
+		Description: Elite Rank bonus: Mammoth Tusk
+	Armament@standard:
+		Turret: primary
+		Weapon: 105mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 768,85,90, 768,-85,90
+		MuzzleSequence: muzzle
+		RequiresCondition: !rank-elite
+	Turreted@Primary:
+		Turret: primary
+		TurnSpeed: 20
+	Armament@EliteMain:
+		Turret: primary
+		Weapon: 120mm
+		Recoil: 128
+		RecoilRecovery: 28
+		LocalOffset: 768,85,90, 768,-85,90
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	Armament@EliteAP:
+		Turret: secondary
+		Weapon: MammothTusk
+		LocalOffset: 420,0,190
+		RequiresCondition: rank-elite
+	WithSpriteTurret@Elite:
+		Turret: secondary
+		RequiresCondition: rank-elite
+		Sequence: turret2
+	Turreted@Secondary:
+		Turret: secondary
+		Offset: 100,0,120
+		TurnSpeed: 30
+	Health:
+		HP: 60000
+	Mobile:
+		Speed: 71
+3TNK.china:
+	Inherits: 3TNK
+	Buildable:
+		Prerequisites: fix, ~vehicles.china, ~techlevel.medium
+		Description: China Main Battle Tank, with dual cannons\n made cheaper at the cost of quality.\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: China Heavy Tank
+		GenericName: Tank
+	TooltipDescription:
+		Description: Elite Rank bonus: Flamer
+	Health:
+		HP: 47000
+	Mobile:
+		Speed: 65
+	Armament@standard:
+		Turret: primary
+		Weapon: 105mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 968,85,90, 968,-85,90
+		MuzzleSequence: muzzle
+		RequiresCondition: !rank-elite
+	Turreted@Primary:
+		Turret: primary
+		TurnSpeed: 20
+		Offset: 200,0,5
+	Armament@EliteMain:
+		Turret: primary
+		Weapon: 120mm
+		Recoil: 128
+		RecoilRecovery: 28
+		LocalOffset: 968,85,90, 968,-85,90
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	Armament@EliteAP:
+		Turret: secondary
+		Weapon: Flamer.Tank
+		LocalOffset: 420,0,190
+		RequiresCondition: rank-elite
+	WithSpriteTurret@Elite:
+		Turret: secondary
+		RequiresCondition: rank-elite
+		Sequence: turret2
+	Turreted@Secondary:
+		Turret: secondary
+		Offset: 100,0,120
+		TurnSpeed: 30
+	Voiced:
+		VoiceSet: ChinaVoice
+	RenderSprites:
+		Image: 3tnkc
+LASHER:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 220
+		Prerequisites: fix, ~vehicles.turkey, ~techlevel.medium
+		Description: Turkey Main Battle Tank\n  Strong vs Vehicles\n  Weak vs Infantry, Aircraft
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: Lasher Tank
+		GenericName: Tank
+	TooltipDescription:
+		Description: Elite Rank bonus: Twin Cannon
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 50000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 20
+	Armament:
+		Weapon: 90mm
+		Recoil: 128
+		RecoilRecovery: 38
+		LocalOffset: 768,0,90
+		MuzzleSequence: muzzle
+		RequiresCondition: !rank-elite
+	Turreted@Primary:
+		Turret: primary
+		TurnSpeed: 20
+	Armament@EliteMain:
+		Turret: secondary
+		Weapon: 105mm
+		Recoil: 128
+		RecoilRecovery: 28
+		LocalOffset: 768,85,90, 768,-85,90
+		MuzzleSequence: muzzle
+		RequiresCondition: rank-elite
+	WithSpriteTurret@Elite:
+		Turret: secondary
+		RequiresCondition: rank-elite
+		Sequence: turret2
+	Turreted@Secondary:
+		Turret: secondary
+		TurnSpeed: 30
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Voiced:
+		VoiceSet: TurkVoice
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+SCUDL:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		Prerequisites: dome, ~vehicles.turkey, ~techlevel.medium
+		Description: Long-range rocket artillery.\n  Strong vs Infantry, Buildings\n  Weak vs Vehicles, Aircraft
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Scud Launcher
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 70
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: SCUDMISS
+		ReloadingCondition: reloading
+	AutoTarget:
+		ScanRadius: 11
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	WithFacingSpriteBody:
+		RequiresCondition: !reloading
+		Name: loaded
+	WithFacingSpriteBody@EMPTY:
+		RequiresCondition: reloading
+		Sequence: empty-idle
+		Name: reloading
+	Explodes:
+		Weapon: V2Explode
+	Voiced:
+		VoiceSet: SCUDLauncherVoice
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+MSAR:
+	Inherits: ^Vehicle
+	Inherits@SELECTION: ^SelectableSupportUnit
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		IconPalette: chrometd
+		Prerequisites: weap, ~vehicles.soviet, ~techlevel.medium
+		BuildDurationModifier: 50
+		Description: Listening Post.\n When deployed, provides radar and increases nearby vehicle view range.\n Detects cloaked units.\n Unarmed
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Mobile Sensor Array
+		RequiresCondition: !deployed
+	TooltipDescription:
+		Description: Deploy to become Listening post. Can detect cloaked units.
+		ValidRelationships: Ally
+	Tooltip@DEPLOYED:
+		Name: Listening Post
+		RequiresCondition: deployed
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 22000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 82
+		RequireForceMoveCondition: !undeployed
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+		RequiresCondition: undeployed
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+		RequiresCondition: undeployed
+	RevealsShroud@DEPLOYED:
+		RequiresCondition: !undeployed
+		Range: 20c0
+	Repairable:
+		RequireForceMoveCondition: !undeployed
+	Passenger:
+		RequireForceMoveCondition: !undeployed
+	GrantCondition@PREVIEWWORKAROUND:
+		Condition: real-actor
+	WithMakeAnimation:
+		BodyNames: deployedbody
+	WithSpriteBody@deployed:
+		Sequence: idle-static
+		RequiresCondition: !undeployed && real-actor
+		Name: deployedbody
+	WithFacingSpriteBody:
+		RequiresCondition: !deployed
+	GrantConditionOnDeploy:
+		PauseOnCondition: being-captured
+		DeployedCondition: deployed
+		UndeployedCondition: undeployed
+		Facing: 165
+		AllowedTerrainTypes: Clear, Road, Rough, Ore, Gems
+		DeploySounds: placbldg.aud
+		UndeploySounds: audio/clicky1.aud
+		UndeployOnMove: true
+		UndeployOnPickup: true
+	DetectCloaked@Deployed:
+		Range: 10c0
+		DetectionTypes: Cloak, Underwater, Mine
+		RequiresCondition: deployed
+	IgnoresDisguise:
+	RenderDetectionCircle:
+		TrailCount: 3
+	GpsDot:
+		String: Communications
+	Selectable:
+		DecorationBounds: 1280, 1280
+	Voiced:
+		VoiceSet: ListeningOutpostVoice
+	ProximityExternalCondition@Bino:
+		Condition: bino
+		Range: 15c0
+		EnableSound: bits/dsaping1.aud
+		AffectsParent: False
+		RequiresCondition: deployed
+	Targetable:
+		TargetTypes: GroundActor, Vehicle, C4
+	RenderSprites:
+		PlayerPalette: playertd
+	WithDamageOverlay:
+		Image: smoke_mtd
+KATY:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 171
+		IconPalette: chrometd
+		Prerequisites: ~vehicles.turkey, ~techlevel.medium
+		Description: Long-range rocket artillery.\n• Strong vs Buildings, Defenses, Infantry, Light Armor\n• Cannot attack Aircraft\n• Has difficulty hitting moving targets
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Katyusha
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 15000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 49
+		TurnSpeed: 14
+	RevealsShroud:
+		Range: 5c0
+	Armament@PRIMARY:
+		Weapon: KatyushaRockets
+		LocalOffset: 268,-100,440
+	Armament@SECONDARY:
+		Weapon: KatyushaRocketsWide
+		LocalOffset: 268,100,440
+		FireDelay: 6
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 0
+	Voiced:
+		VoiceSet: TurkVoice
+	Explodes:
+		Weapon: BarrelExplode
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+FTRK:
+	Buildable:
+		Prerequisites: dome, ~!vehicles.china, ~!vehicles.russia, ~vehicles.soviet, ~techlevel.low
+	Tooltip:
+		Name: Mobile AA Gun
+GTNK:
+	Inherits@Voices: ^VoicesSelector
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 210
+		Prerequisites: dome, ~vehicles.china, ~techlevel.low
+		Description: Gattling Tank armed with heavy machine gun\n  Strong vs Aircraft,Infantry\n  Weak vs Tanks
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: GatlingTank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 110
+		Locomotor: wheeled
+		PauseOnCondition: being-captured
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament@AA:
+		Name: primary
+		Weapon: VulcanAA
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 508,0,90
+		MuzzleSequence: muzzle
+	GrantConditionOnAttack@AA:
+		ArmamentNames: primary
+		Condition: attacking-air
+		RequiredShotsPerInstance: 1,2,4
+		MaximumInstances: 3
+		RevokeDelay: 40
+		RevokeOnNewTarget: False
+		RevokeAll: True
+		RequiresCondition: !attacking-ground
+	Armament@inf:
+		Name: secondary
+		Weapon: Vulcan
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 508,0,90
+		MuzzleSequence: muzzle
+	GrantConditionOnAttack@GROUND:
+		ArmamentNames: secondary
+		Condition: attacking-ground
+		RequiredShotsPerInstance: 1,4
+		MaximumInstances: 2
+		RevokeDelay: 40
+		RevokeOnNewTarget: False
+		RevokeAll: True
+		RequiresCondition: !attacking-air
+	Turreted:
+		Offset: 10,0,20
+		TurnSpeed: 38
+	AttackTurreted:
+	WithSpriteTurret@AA:
+		RequiresCondition: !attacking-ground
+	WithSpriteTurret@GROUND:
+		Sequence: turret2
+		RequiresCondition: attacking-ground
+	WithMuzzleOverlay:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+	SpawnActorOnDeath:
+		Actor: GTNK.Husk
+GTNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Gatling Tank)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: gtnk
+	InfiltrateForTransform:
+		IntoActor: gtnk
+	RenderSprites:
+		Image: gtnk.destroyed
+		PlayerPalette: cncplayer
+MSAM:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 130
+		Prerequisites: ~dome, ~vehicles.russia, ~techlevel.high
+		Description: Mobile Anti Air Rocket Launcher.\n  Strong vs Aircraft\n  Weak vs Infantry, Tanks
+		IconPalette: cnc
+	Valued:
+		Cost: 600
+	Tooltip:
+		Name: Mobile SAM
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Health:
+		HP: 35000
+	Armor:
+		Type: Light
+	Armament:
+		Weapon: MobileNike
+		LocalOffset: 213,128,0, 213,-128,0
+		RequiresCondition: !rank-elite
+	Armament@RANKUP:
+		Weapon: Nike
+		LocalOffset: 213,128,0, 213,-128,0
+		RequiresCondition: rank-elite
+	Mobile:
+		Speed: 95
+		TurnSpeed: 8
+	AttackTurreted:
+	Turreted:
+		TurnSpeed: 20
+	WithSpriteTurret:
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+	SpawnActorOnDeath:
+		Actor: MSAM.Husk
+MSAM.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Mobile SAM)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: msam
+	InfiltrateForTransform:
+		IntoActor: msam
+	RenderSprites:
+		PlayerPalette: cncplayer
+		Image: msam.destroyed
+BTR:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 120
+		Prerequisites: ~vehicles.russia, ~techlevel.low
+		Description: Amphibious infantry transport.\n  Strong vs Light armor\n  Weak vs Infantry, Tanks, Aircraft
+	Valued:
+		Cost: 850
+	Tooltip:
+		Name: Bronetransporter
+	TooltipDescription:
+		Description: Can carry 8 Infantry, can cross water
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 35000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 110
+		PauseOnCondition: notmobile || being-captured
+		Locomotor: amphibious
+	GrantConditionOnTerrain@SEA:
+		TerrainTypes: Water, River
+		Condition: floating
+	Targetable:
+		RequiresCondition: !floating
+	Targetable@SEA:
+		TargetTypes: GroundActor, WaterActor, Ship, Tank
+		RequiresCondition: floating
+	WithFacingSpriteBody:
+		Sequence: idle
+		RequiresCondition: !floating
+	WithFacingSpriteBody@SEA:
+		Name: floating
+		Sequence: float
+		RequiresCondition: floating
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: 25mm
+		Recoil: 85
+		RecoilRecovery: 25
+		LocalOffset: 508,0,90
+		MuzzleSequence: muzzle
+	Turreted:
+		Offset: 120,0,250
+		TurnSpeed: 28
+	AttackTurreted:
+	WithSpriteTurret:
+	WithMuzzleOverlay:
+	Cargo:
+		Types: Infantry
+		MaxWeight: 8
+		LoadingCondition: notmobile
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	SpawnActorOnDeath:
+		Actor: BTR.Husk
+BTR.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Bronetransporter)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: btr
+	InfiltrateForTransform:
+		IntoActor: btr
+	RenderSprites:
+		Image: btr.destroyed
+ftnk:
+	Inherits@Voices: ^VoicesSelector
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		Prerequisites: ~ftur, ~techlevel.low
+		BuildPaletteOrder: 120
+		Description: Flame tank.\n  Strong vs Infantry\n  Weak vs Tanks, Aircraft
+		IconPalette: cnc
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Flame Tank
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Health:
+		HP: 18000
+	Mobile:
+		Locomotor: lighttracked
+		Speed: 90
+	Turreted:
+		TurnSpeed: 28
+	Armament:
+		Weapon: Flamer.Tank
+		Recoil: 0
+		RecoilRecovery: 0
+		LocalOffset: 568,0,190
+		MuzzleSequence:
+	AttackTurreted:
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	Explodes:
+		Weapon: CrateNapalm
+		EmptyWeapon: CrateNapalm
+		LoadedChance: 50
+		DamageSource: Killer
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+	RenderSprites:
+		Image: ftnk
+HFTK:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 321
+		IconPalette: chrometd
+		Prerequisites: ftur, ~ctek, ~techlevel.medium
+		Description: Heavy tank armed with dual short-range flamethrowers.
+	Valued:
+		Cost: 1100
+	Tooltip:
+		Name: Dragon Tank
+		GenericName: Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 46000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Locomotor: heavytracked
+		Speed: 56
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 20
+	Armament@PRIMARY:
+		Weapon: HeavyFlamer
+		MuzzleSequence: muzzle
+		MuzzlePalette: chrometd
+		LocalOffset: 750,200,150, 750,-200,150
+	AttackTurreted:
+		Voice: Attack
+		RangeMargin: 0
+	WithSpriteTurret:
+	WithMuzzleOverlay:
+	Voiced:
+		VoiceSet: FlameTankVoice
+	Explodes:
+		Weapon: BarrelExplode
+		EmptyWeapon: BarrelExplode
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		PlayerPalette: cncplayer
+V3RL:
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 230
+		BuildDuration: 1450
+		Prerequisites: dome, ~vehicles.russia, ~techlevel.high
+		Description: Extreme long-range rocket artillery.\n  Strong vs Buildings, Defenses, Infantry\n  Weak vs Tanks, Aircraft
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: V3 Launcher
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 20000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 85
+		Voice: Move
+	Passenger:
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: V3Launcher
+		ReloadingCondition: reloading
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		Voice: Attack
+		FacingTolerance: 0
+	WithFacingSpriteBody:
+		RequiresCondition: !reloading
+		Name: loaded
+	WithFacingSpriteBody@EMPTY:
+		RequiresCondition: reloading
+		Sequence: empty-idle
+		Name: reloading
+	Explodes:
+		Weapon: BarrelExplode
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1194, 1194
+	Voiced:
+		VoiceSet: V3Voice
+	Exit:
+		SpawnOffset: 0,-128,0
+	AutoTarget:
+		ScanRadius: 16
+6TNK:
+	Inherits@Voices: ^VoicesSelector
+	Inherits: ^Vehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 241
+		Prerequisites: dome, ~vehicles.china, ~techlevel.high
+		Description: Long-range artillery./n Strong Vs Buildings, Infantry
+	Valued:
+		Cost: 1350
+	Tooltip:
+		Name: Inferno Cannon
+	TooltipDescription:
+		Description: Aritllery platform with napalm cluster shells.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 11000
+	Armor:
+		Type: Light
+	Mobile:
+		TurnSpeed: 20
+		Speed: 92
+		Locomotor: lighttracked
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: 155mm.CIC
+		LocalOffset: 624,0,408
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		FacingTolerance: 32
+	WithMuzzleOverlay:
+	Explodes:
+		Weapon: ArtilleryExplode
+		LoadedChance: 75
+	Voiced:
+		VoiceSet: GenericVoice
+		RequiresCondition: Vanilla
+	Voiced@China:
+		VoiceSet: ChinaVoice
+		RequiresCondition: IAMCHINESE
+	Voiced@USA:
+		VoiceSet: USAVoice
+		RequiresCondition: IAMAMERICAN
+	Voiced@Turkey:
+		VoiceSet: TurkVoice
+		RequiresCondition: IAMTURK
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	WithProductionIconOverlay:
+		Types: Veterancy
+		Prerequisites: vehicles.upgraded
+	RenderSprites:
+		PlayerPalette: cncplayer
+4TNK:
+	Buildable:
+		Prerequisites: fix, techcenter, ~!vehicles.ukraine, ~!vehicles.china, ~vehicles.soviet, ~techlevel.high
+TTNK2:
+	Inherits: 4TNK
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 330
+		Prerequisites: tsla, ~rtek, ~techlevel.high
+		Description: Adapted Mammoth Tank with twin mounted Tesla Coils.\n• Strong vs Infantry, Heavy Armor, Light Armor\n• Cannot attack Aircraft
+	Valued:
+		Cost: 2250
+	Tooltip:
+		Name: Tesla Mammoth Tank
+		GenericName: Tank
+	Health:
+		HP: 80000
+	Armament@PRIMARY:
+		Weapon: TTankZap
+		LocalOffset: 511,200,113
+		-MuzzleSequence:
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: TTankZap
+		LocalOffset: 511,-200,113
+		FireDelay: 5
+		-MuzzleSequence:
+	AttackTurreted:
+	-WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: TTNK2.Husk
+TTNK2.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Mammoth Tesla)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: ttnk2
+	InfiltrateForTransform:
+		IntoActor: ttnk2
+	RenderSprites:
+		Image: ttnk2.destroyed
+APOC:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 350
+		BuildDuration: 2000
+		Prerequisites: fix, ~utek, ~techlevel.high
+		Description: Enormous slow tank with uranium shells and anti-air capability.
+	Valued:
+		Cost: 2600
+	-Carryable:
+	Tooltip:
+		Name: Apocalypse Tank
+		GenericName: Tank
+	TooltipDescription:
+		Description: Can crush smaller tanks.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 110000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 40
+		TurnSpeed: 8
+		Locomotor: sheavytracked
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Turreted:
+		TurnSpeed: 8
+	Armament@PRIMARY:
+		Weapon: 120mm.Apoc
+		LocalOffset: 1400,100,340, 1400,-100,340
+		Recoil: 171
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	Armament@SECONDARY:
+		Name: secondary
+		Weapon: ApocalypseTusk
+		LocalOffset: -85,384,340, -85,-384,340
+		LocalYaw: -100,100
+		Recoil: 43
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		Voice: Attack
+	WithMuzzleOverlay:
+	WithSpriteTurret:
+	SpawnActorOnDeath:
+		Actor: APOC.Husk
+	ChangesHealth:
+		PercentageStep: 10
+		Delay: 5
+		StartIfBelow: 50
+		DamageCooldown: 150
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Voiced:
+		VoiceSet: ApocalypseVoice
+	AttackMove:
+		Voice: Attack
+	RenderSprites:
+APOC.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Apocalypse)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: apoc
+	InfiltrateForTransform:
+		IntoActor: apoc
+	RenderSprites:
+		Image: apoc.destroyed
+EMPOR:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits@CARGOPIPS: ^CargoPips
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 350
+		BuildDuration: 2000
+		Prerequisites: fix, ~ctek, ~techlevel.high
+		Description: Enormous slow tank with artillery shells and garrison ability\n Conscript - Gatling\nRocket Soldier - Mammoth tusk\nFlamethrower - Flame Turret\nHacker - Propaganda
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Overlord Tank
+		GenericName: Tank
+	TooltipDescription:
+		Description: Garrison a troop to add a second turret, can crush other tanks.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	-Carryable:
+	Health:
+		HP: 110000
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 40
+		TurnSpeed: 8
+		Locomotor: sheavytracked
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Passenger:
+		Weight: 2
+	Cargo:
+		Types: Infantry
+		MaxWeight: 1
+		PassengerConditions:
+			e1: gatling
+			e1ch: gatling
+			e3: missile
+			e3r1: missile
+			e4: flamer
+			hacker: proptwr
+	Turreted@PRIMARY:
+		Turret: primary
+		TurnSpeed: 10
+		Offset: -400,0,-20
+	WithSpriteTurret@PRIMARY:
+		Turret: primary
+	Armament@PRIMARY:
+		Weapon: 380mm
+		LocalOffset: 1100,100,140, 1100,-100,140
+		Recoil: 131
+		RecoilRecovery: 30
+		MuzzleSequence: muzzle
+	Turreted@gatling:
+		Turret: secondary
+		TurnSpeed: 40
+		Offset: -400,0,150
+	WithSpriteTurret@gatling:
+		Turret: secondary
+		RequiresCondition: gatling
+		Sequence: turret2
+	Armament@gatling:
+		Weapon: Vulcan
+		Recoil: 5
+		RecoilRecovery: 25
+		LocalOffset: 800,0,190
+		MuzzleSequence: muzzle2
+		RequiresCondition: gatling
+	Turreted@missile:
+		Turret: secondary
+		TurnSpeed: 40
+		Offset: 620,0,100
+	WithSpriteTurret@missile:
+		Turret: secondary
+		RequiresCondition: missile
+		Sequence: turret3
+	Armament@missile:
+		Weapon: MammothTusk
+		Recoil: 5
+		RecoilRecovery: 25
+		LocalOffset: 800,0,190
+		MuzzleSequence: muzzle2
+		RequiresCondition: missile
+	Turreted@flamer:
+		Turret: secondary
+		TurnSpeed: 40
+		Offset: 620,0,0
+	WithSpriteTurret@flamer:
+		Turret: secondary
+		RequiresCondition: flamer
+		Sequence: turret4
+	Armament@flamer:
+		Weapon: Flamer.Tank.Rank
+		Recoil: 5
+		RecoilRecovery: 25
+		LocalOffset: 900,0,200
+		MuzzleSequence:
+		RequiresCondition: flamer
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		RequiresCondition: proptwr
+		Offset: -400,0,300
+	ProximityExternalCondition:
+		RequiresCondition: proptwr
+		Condition: prop
+		Range: 4c0
+		ValidRelationships: Ally
+	WithRangeCircle@hacker:
+		RequiresCondition: proptwr
+		Range: 4c0
+		Color: FFFF6680
+	AttackTurreted:
+		Turrets: primary, secondary
+	WithMuzzleOverlay:
+	SpawnActorOnDeath:
+		Actor: EMPOR.Husk
+	ChangesHealth:
+		PercentageStep: 10
+		Delay: 5
+		StartIfBelow: 50
+		DamageCooldown: 150
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Selectable:
+		DecorationBounds: 1877, 1621, 0, -170
+	Voiced:
+		VoiceSet: OverlordVoice
+	AttackMove:
+		Voice: Attack
+EMPOR.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Overlord)
+	ThrowsParticle@turret:
+		Anim: turret
+	TransformOnCapture:
+		IntoActor: empor
+	InfiltrateForTransform:
+		IntoActor: empor
+	RenderSprites:
+		Image: empor.destroyed
+ISU:
+	Inherits: ^TrackedVehicle
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 260
+		BuildDuration: 2000
+		Prerequisites: fix, ~utek, ~techlevel.high
+		Description: Medium-range artillery\nwith powerful cluster shells.\n Strong vs Buildings, Infantry\n Weak vs Aircraft
+	Valued:
+		Cost: 1800
+	Tooltip:
+		Name: Siege Tank
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 65000
+	Armor:
+		Type: Heavy
+	Mobile:
+		TurnSpeed: 5
+		Speed: 66
+		Locomotor: heavytracked
+		Voice: Move
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 6c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: 360mm
+		LocalOffset: 824,0,208
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		TargetFrozenActors: True
+		ForceFireIgnoresActors: True
+		Voice: Attack
+		FacingTolerance: 0
+	WithMuzzleOverlay:
+	Explodes:
+		Weapon: ArtilleryExplode
+		LoadedChance: 75
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	Passenger:
+		Voice: Move
+	Voiced:
+		VoiceSet: SiegeTankVoice
+	SpawnActorOnDeath:
+		Actor: ISU.Husk
+ISU.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (Siege Tank)
+	TransformOnCapture:
+		IntoActor: isu
+	InfiltrateForTransform:
+		IntoActor: isu
+	RenderSprites:
+		Image: isu.destroyed
+LATNK:
+	Inherits: ^TrackedVehicle
+	Inherits@SELECTION: ^SelectableSupportUnit
+	Inherits@GAINSEXPERIENCE: ^GainsExperience
+	Buildable:
+		Queue: Vehicle
+		BuildDuration: 1450
+		BuildLimit: 1
+		Prerequisites: ~iron, ~utek
+		Description: Portable Iron Curtain
+	Valued:
+		Cost: 3000
+	Tooltip:
+		Name: Portable Iron Curtain
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 30000
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 90
+		TurnSpeed: 5
+	RevealsShroud:
+		MinRange: 4c0
+		Range: 5c0
+		RevealGeneratedShroud: False
+	RevealsShroud@GAPGEN:
+		Range: 4c0
+	Armament:
+		Weapon: IronCannon
+		TargetRelationships: Ally
+	AttackTurreted:
+	Turreted:
+	WithIdleOverlay@SPINNER:
+		Sequence: spinner
+		Offset: 0, 0, 10
+		Palette:
+		IsPlayerPalette: false
+	Selectable:
+		DecorationBounds: 1280, 1280
+	ProducibleWithLevel:
+		Prerequisites: vehicles.upgraded
+	SpawnActorOnDeath:
+		Actor: LATNK.Husk
+LATNK.Husk:
+	Inherits: ^Husk
+	Tooltip:
+		Name: Husk (PIC)
+	TransformOnCapture:
+		IntoActor: latnk
+	InfiltrateForTransform:
+		IntoActor: latnk
+	RenderSprites:
+TXTRK:
+	Inherits: ^Vehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 330
+		Prerequisites: ~ttek, ~vehicles.turkey, ~techlevel.high
+		Description: Truck with deadly chemical\nweapons. Has very weak armor.
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Toxin Truck
+	TooltipDescription:
+		Description: Poisons all infantry.
+	UpdatesPlayerStatistics:
+		AddToArmyValue: true
+	Health:
+		HP: 3800
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 67
+	RevealsShroud:
+		Range: 4c0
+	Explodes:
+		Weapon: ToxinCloud
+		EmptyWeapon: ToxinCloud
+		DamageSource: Killer
+	AttackFrontal:
+		FacingTolerance: 512
+	Armament@PRIMARY:
+		Weapon: TxTruckTargeting
+	GrantConditionOnAttack:
+		Condition: triggered
+	GrantConditionOnDeploy:
+		DeployedCondition: triggered
+	-DamageMultiplier@IRONCURTAIN:
+	KillsSelf:
+		RequiresCondition: invulnerability || triggered
+	Chronoshiftable:
+		ExplodeInstead: true
